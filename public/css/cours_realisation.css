@@ -1,0 +1,79 @@
+/* Styles de base sur le body */
+body {
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+/* HEADER PRINCIPAL (titre + image d'en-tête) */
+.cours-header {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+.cours-header h1 {
+  font-size: 3rem;         
+  color: #5c3c2a;
+  margin-bottom: 1.5rem;
+}
+.cours-header img {
+  border-radius: 1rem;      
+}
+
+/* SECTION INTRO (objectif du cours) */
+.intro-objectif {
+  margin: 5rem;
+  text-align: center;
+}
+.intro-objectif h2 {
+  color: #5c3c2a;
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+.intro-objectif p {
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+/* CONTENEUR IMAGE + TEXTE */
+.container {
+  display: flex;            
+  align-items: center;   
+  background: white;
+  padding: 4rem;           
+  max-width: 100%;/*Je prends toute la largeur dispo */
+  margin: 2rem auto;    
+  gap: 0;/* Je ne veux pas d’espace entre l'image et texte*/
+}
+
+/* IMAGE À GAUCHE */
+.image-side img {
+  width: 700px;             
+  height: auto;
+  display: block;/*Je retire les espaces blancs sous l’image */
+}
+
+/* TEXTE À DROITE */
+.text-side {
+  flex: 1;/* Je prends le reste de l’espace */
+  padding: 4rem;            
+  display: flex;
+  flex-direction: column;  
+  justify-content: center;  
+}
+.text-side h2 {
+  color: #5c3c2a;
+  font-size: 2.2rem;
+  margin-top: 0;            
+}
+.text-side p,
+.text-side ul {
+  font-size: 1.4rem;
+  margin: 0;
+  padding: 0;
+}
+.text-side ul {
+  list-style: disc;
+  padding-left: 1rem;       
+  margin-top: 1rem;      
+}
