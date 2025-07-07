@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  position: relative;
+}
+
+.logo img {
+  width: 100px;
+  height: auto;
+}
+
+nav {
+  flex: 1;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  display: inline-flex;
+  gap: 1rem;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  padding: 0.5rem 1rem;
+}
+
+.auth-btn {
+  background-color: #000;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.auth-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+
+
