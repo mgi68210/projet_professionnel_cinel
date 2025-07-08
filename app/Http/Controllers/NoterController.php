@@ -11,6 +11,8 @@ use Carbon\Carbon;
 class NoterController extends Controller
 {
 
+
+    // vue du formulaire
 public function formSansId()
 {
     $coursDisponibles = Auth::user()->cours; // cours réservés par l’utilisateur connecté
@@ -26,7 +28,7 @@ public function formSansId()
 
     public function submit(Request $request)
 {
-    // Vérifie que l'utilisateur est connecté
+    // quelqu'un de connecté? 
     if (!Auth::check()) {
         return redirect()->route('login');
     }
@@ -34,7 +36,7 @@ public function formSansId()
     // ID de l'utilisateur connecté
     $userId = Auth::user()->id_utilisateur;
 
-    // Validation des champs
+    // Champs obligatoire pour noter
     $request->validate([
         'id_cours' => 'required|uuid|exists:cours,id_cours',
         'note' => 'required|integer|min:1|max:5',
@@ -46,13 +48,13 @@ public function formSansId()
     $note = $request->input('note');
     $commentaire = $request->input('commentaire');
 
-    // Je vérifie si un avis existe déjà pour ce couple utilisateur + cours
+    // Est ce que l'utilisateur a déjà noté ce cours? 
     $existing = Noter::where('id_utilisateur', $userId)
                     ->where('id_cours', $coursId)
                     ->first();
 
     if ($existing) {
-        // Mise à jour de l'avis existant
+        // Si oui, je le mets à jour
         $existing->update([
             'note_satisfaction' => $note,
             'commentaire' => $commentaire,
@@ -61,7 +63,7 @@ public function formSansId()
 
         return redirect()->route('home')->with('success', ' Votre avis a été mis à jour.');
     } else {
-        // Création d’un nouvel avis
+        // Sinon, création d'un nouvel avis
         Noter::create([
             'id_utilisateur' => $userId,
             'id_cours' => $coursId,
@@ -74,7 +76,7 @@ public function formSansId()
     }
 }
 
-
+// fonction pour supprimer l'avis
     public function delete($id_utilisateur, $id_cours)
     {
         Noter::where('id_utilisateur', $id_utilisateur)

@@ -4,12 +4,12 @@
 @section('content')
 <h1>Liste des cours disponibles</h1>
 
-<!-- Affiche un message de succès s'il y a -->
+<!-- Message si co -->
 @if (session('success'))
     <div style="color: green">{{ session('success') }}</div>
 @endif
 
-<!-- Affiche un message d'erreur s'il y a -->
+<!-- Message erreur -->
 @if (session('error'))
     <div style="color: red">{{ session('error') }}</div>
 @endif

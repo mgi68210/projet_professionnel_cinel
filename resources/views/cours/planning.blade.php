@@ -4,17 +4,17 @@
     <h1>Planning des Cours</h1>
     <p style="text-align:center;">Cliquez sur un cours pour réserver.</p>
 
-    <!-- Le calendrier s'affiche ici -->
+    <!-- Le calendrier affiché -->
     <div id="calendar" style="max-width: 900px; margin: 2rem auto;"></div>
 @endsection
 
 @section('styles')
-    <!-- Le CSS du calendrier -->
+    <!-- Style -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
-    <!-- Le JS du calendrier -->
+    <!--JS -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {

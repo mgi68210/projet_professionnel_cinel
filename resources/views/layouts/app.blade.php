@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'CINEL')</title>
 
-    {{-- Feuille de style commune --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    {{-- Feuilles de style spécifiques à une page --}}
     @yield('styles')
 </head>
 <body>
 
     @include('partials.header')
 
-    {{-- Contenu principal --}}
+    {{-- corps de texte --}}
     <main>
         @yield('content')
     </main>

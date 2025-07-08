@@ -1,20 +1,17 @@
 @extends('layouts.app') 
-{{-- Ma "mise en page" de base (layout) --}}
 
 @section('content') 
-{{-- la section "content" que le layout va afficher au bon endroit --}}
 
     <h1>Laisser un avis sur un cours</h1> 
 
     <form method="POST" action="{{ route('noter.submit') }}">
         @csrf 
-        {{-- Cette ligne ajoute un token caché de sécurité CSRF (contre les attaques de formulaire). Laravel oblige. --}}
+        {{-- token (jeton) caché de sécurité CSRF (contre les attaques de formulaire) pour permettre au middleware de protection CSRF de valider la requête --}}
 
-        {{-- ------------ Sélection du cours ------------ --}}
         <label for="id_cours">Cours :</label>
         <select name="id_cours" required>
             <option value="">-- Choisissez un cours --</option>
-            {{-- On affiche ici tous les cours disponibles, un par un --}}
+
             @foreach($coursDisponibles as $cours)
                 <option value="{{ $cours->id_cours }}">
                     {{ $cours->titre }} ({{ $cours->date_heure }}) 
@@ -38,7 +35,6 @@
 
         <label for="commentaire">Commentaire :</label>
         <textarea name="commentaire" rows="4" cols="50"></textarea>
-        {{-- L’utilisateur peut écrire ce qu’il pense du cours --}}
 
         <br><br>
 

@@ -47,10 +47,9 @@
     <section class="banner">
         <p>Rejoignez-nous et explorez l’univers du cinéma autrement !</p>
     </section>
-    <button id="click">ici</button>
-
 @endsection
 
 @section('scripts')
     <script src="{{ asset('js/concept.js') }}"></script>
 @endsection
+

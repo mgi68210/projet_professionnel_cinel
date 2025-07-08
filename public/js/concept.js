@@ -11,6 +11,3 @@
   }
 
 
-document.getElementById("click").addEventListener("click",function(){
-    this.style.backgroundColor = "yellow";
-})

@@ -25,7 +25,7 @@
     <div class="auth-buttons">
         @auth
             <a href="{{ route('home') }}" class="auth-btn">Profil</a>
-            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+            <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="auth-btn">Déconnexion</button>
             </form>

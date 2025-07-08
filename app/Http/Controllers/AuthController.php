@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
-use Illuminate\Support\Facades\Hash; // Pour encoder les mots de passe
+use Illuminate\Support\Facades\Hash; // Pour hasher les mdp
 use Illuminate\Support\Facades\Auth; // Pour se connecter automatiquement
 use App\Models\Utilisateur;          
 
 
 class AuthController extends Controller
 {
-    // Affiche connexion
+    // Affichage de connexion
     public function login()
     {
         return view('auth.login');
     }
 
-    // Gère la connexion
+    // Gestion la connexion
     public function doLogin(Request $request)
     {
         // Email et mot de passe requis
@@ -31,7 +31,7 @@ class AuthController extends Controller
         $admin = Admin::where('email', $request->email)->first();
 
         if ($admin && Hash::check($request->password, $admin->mot_de_passe)) {
-            Auth::login($admin); // connexion admin
+            Auth::login($admin); 
             return redirect()->route('admin.index'); // page admin
         }
 
@@ -39,11 +39,11 @@ class AuthController extends Controller
         $user = Utilisateur::where('email', $request->email)->first();
 
         if ($user && Hash::check($request->password, $user->mot_de_passe)) {
-            Auth::login($user); //connexion utilisateur
+            Auth::login($user); 
             return redirect()->route('home'); // page utilisateur
         }
 
-        // Aucune corresponsdance = erreur
+        // si mail non trouver = message erreur
         return back()->withErrors([
             'email' => 'Email ou mot de passe invalide.'
         ])->onlyInput('email');
@@ -63,10 +63,10 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    // Enregistre l'inscription
+    // Enregistrement de l'inscription
     public function doRegister(Request $request)
     {
-        // champs formulaires requis
+        // champs formulaires qui sont requis
         $request->validate([
             'nom' => 'required|string|max:50',                         
             'prenom' => 'required|string|max:50',                      
