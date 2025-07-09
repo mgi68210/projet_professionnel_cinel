@@ -16,11 +16,10 @@ public function run(): void
         UtilisateursSeeder::class,
         AdminSeeder::class,
         CoursSeeder::class,
-        QuizSeeder::class,
-        ResulteSeeder::class,
+        QuestionnaireSeeder::class,
+        ReponseSeeder::class,
         ReserverSeeder::class,
         NoterSeeder::class,
-        MessageSeeder::class,
     ]);
 }
 

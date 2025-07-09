@@ -27,7 +27,7 @@ class ReserverController extends Controller
             return redirect()->route('cours.planning')->with('error', 'Vous avez déjà réservé ce cours.');
         }
 
-        $statut = ($cours->utilisateurs_count >= $cours->capacite_max) ? 'en attente' : 'confirmée';
+        $statut = ($cours->utilisateurs_total >= $cours->capacite_max) ? 'en attente' : 'confirmée';
 
         Reserver::create([
             'id_utilisateur' => $user->id_utilisateur,

@@ -21,20 +21,23 @@ class Cours extends Model
         'date_heure'
     ];
 
-    public function utilisateurs()
-    {
-        return $this->belongsToMany(Utilisateur::class, 'reserver', 'id_cours', 'id_utilisateur')
-                    ->withPivot('date_reservation', 'statut')
-                    ->withTimestamps();
-    }
+// Un cours peut être réservé par plusieurs utilisateurs via la table "reserver"
+public function utilisateurs()
+{
+    return $this->belongsToMany(Utilisateur::class, 'reserver', 'id_cours', 'id_utilisateur')
+                ->withPivot('date_reservation', 'statut')
+                ->withTimestamps();
+}
 
-    public function quiz()
-    {
-        return $this->hasMany(Quiz::class, 'id_cours');
-    }
+// Un cours peut avoir plusieurs questionnaires associés
+public function questionnaires()
+{
+    return $this->hasMany(Questionnaire::class, 'id_cours', 'id_cours');
+}
 
-    public function notes()
-    {
-        return $this->hasMany(Noter::class, 'id_cours');
-    }
+// Un cours peut recevoir plusieurs notes de différents utilisateurs
+public function notes()
+{
+    return $this->hasMany(Noter::class, 'id_cours', 'id_cours');
+}
 }

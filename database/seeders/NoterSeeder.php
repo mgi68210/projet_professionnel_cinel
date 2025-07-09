@@ -18,9 +18,9 @@ class NoterSeeder extends Seeder
 
         $commentaires = [
             'Très bon cours !',
-            'J’ai appris plein de choses 👍',
+            'J’ai appris plein de choses',
             'Un peu difficile mais intéressant.',
-            'Le formateur était super 👏',
+            'Le formateur était super',
             'Je recommande ce cours !',
             'Bonne ambiance, merci !',
             'Je m’attendais à mieux.',
@@ -28,7 +28,7 @@ class NoterSeeder extends Seeder
         ];
 
         // Pour chaque utilisateur
-        foreach ($utilisateurs as $userId) {
+        foreach ($utilisateurs as $utilisateurId) {
 
             // Je prends un cours au hasard
             $coursId = $cours->random();
@@ -41,7 +41,7 @@ class NoterSeeder extends Seeder
 
             // J'ajoute une ligne dans la table "noter"
             DB::table('noter')->insert([
-                'id_utilisateur'     => $userId,
+                'id_utilisateur'     => $utilisateurId,
                 'id_cours'           => $coursId,
                 'note_satisfaction'  => $note,
                 'commentaire'        => $commentaire,

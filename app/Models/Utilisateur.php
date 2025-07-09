@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable; // au lieu de Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Utilisateur extends Authenticatable
@@ -14,19 +14,41 @@ class Utilisateur extends Authenticatable
     protected $keyType = 'string';
     public $incrementing = false;
 
-    protected $fillable = ['nom', 'prenom', 'email', 'mot_de_passe'];
+    protected $fillable = [
+        'nom',
+        'prenom',
+        'email',
+        'mot_de_passe',
+    ];
 
-    // Le champs password par defaut (ce que Laravel attend)
+
     public function getAuthPassword()
     {
         return $this->mot_de_passe;
     }
 
-    public function cours()
-{
-    return $this->belongsToMany(Cours::class, 'reserver', 'id_utilisateur', 'id_cours')
-                ->withPivot('date_reservation', 'statut')
-                ->withTimestamps();
-}
 
+ //Un utilisateur peut réserver plusieurs cours (relation many-to-many).
+//Table pivot : reserver
+    public function cours()
+    {
+        return $this->belongsToMany(Cours::class, 'reserver', 'id_utilisateur', 'id_cours')
+                    ->withPivot('date_reservation', 'statut')
+                    ->withTimestamps();
+    }
+
+//Un utilisateur peut laisser plusieurs avis (notes et commentaires) sur les cours.
+
+    public function avis()
+    {
+        return $this->hasMany(Noter::class, 'id_utilisateur', 'id_utilisateur');
+    }
+
+
+//Un utilisateur peut répondre à plusieurs questionnaires.
+
+    public function reponses()
+    {
+        return $this->hasMany(Reponse::class, 'id_utilisateur', 'id_utilisateur');
+    }
 }

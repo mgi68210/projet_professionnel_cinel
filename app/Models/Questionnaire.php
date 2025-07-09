@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Quiz extends Model
+class Questionnaire extends Model
 {
     use HasUuids;
 
-    protected $table = 'quiz'; // force Laravel à utiliser la table "quiz
-    protected $primaryKey = 'id_quiz';
+    protected $table = 'questionnaires'; 
+    protected $primaryKey = 'id_questionnaire';
     protected $keyType = 'string';   
     public $incrementing = false;     
 
@@ -21,8 +21,9 @@ class Quiz extends Model
         'id_cours'
     ];
 
-    public function cours()
-    {
-        return $this->belongsTo(Cours::class, 'id_cours');
-    }
+// Chaque questionnaire appartient à un cours
+public function cours()
+{
+    return $this->belongsTo(Cours::class, 'id_cours');
+}
 }

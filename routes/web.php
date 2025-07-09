@@ -5,8 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\ReserverController;
 use App\Http\Controllers\NoterController;
-use App\Http\Controllers\QuizController;
-use App\Http\Controllers\MessageController;
+use App\Http\Controllers\QuestionnaireController;
 
 
 
@@ -52,24 +51,16 @@ Route::delete('/cours/{id}/annuler', [ReserverController::class, 'annuler'])->na
 // Noter
 
 
-Route::get('/noter', [NoterController::class, 'formSansId'])->middleware('auth')->name('noter.form');
+Route::get('/noter', [NoterController::class, 'vueform'])->middleware('auth')->name('noter.form');
 Route::post('/noter', [NoterController::class, 'submit'])->middleware('auth')->name('noter.submit');
 
 
-// Quiz
+// Questionnaire
 
+Route::get('/quiz', [QuestionnaireController::class, 'index'])->name('quiz.index');
+Route::get('/quiz/{id_cours}', [QuestionnaireController::class, 'show'])->name('quiz.show');
+Route::post('/quiz/{id_cours}/submit', [QuestionnaireController::class, 'submit'])->name('quiz.submit');
 
-Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
-Route::get('/quiz/{id_cours}', [QuizController::class, 'show'])->name('quiz.show');
-Route::post('/quiz/{id_cours}', [QuizController::class, 'submit'])->name('quiz.submit');
-
-
-// Messages
-
-
-Route::get('/message', [MessageController::class, 'create'])->middleware('auth')->name('message.form');
-Route::post('/message', [MessageController::class, 'submit'])->middleware('auth')->name('message.submit');
-Route::get('/admin/messages', [MessageController::class, 'index'])->middleware('auth')->name('admin.messages');
 
 
 // Page accueil par défaut

@@ -17,7 +17,6 @@
                 <li><a href="{{ route('cours.planning') }}">Planning</a></li>
                 <li><a href="{{ route('quiz.index') }}">Quiz</a></li>
                 <li><a href="{{ route('noter.form') }}">Formulaire</a></li>
-                <li><a href="{{ route('message.form') }}">Contact</a></li>
             @endauth
         </ul>
     </nav>
