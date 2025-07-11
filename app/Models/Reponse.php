@@ -14,24 +14,21 @@ class Reponse extends Model
     protected $keyType = 'string'; 
     protected $primaryKey = null;
     public $timestamps = true;
+
     protected $fillable = [
         'id_utilisateur',
-        'id_questionnaire',
+        'id_question',
         'reponse_choisie',
         'reponse_bonne_fausse',
     ];
 
-//Une réponse est donnée par un seul utilisateur, 
-//mais un utilisateur peut donner plusieurs réponses.
     public function utilisateur()
     {
-        return $this->belongsTo(Utilisateur::class, 'id_utilisateur');
+        return $this->belongsTo(Utilisateur::class, 'id_utilisateur', 'id_utilisateur');
     }
 
-// Une réponse est liée à une seule question (du questionnaire), 
-// mais une question peut recevoir plusieurs réponses de différents utilisateurs.
-    public function questionnaire()
+    public function question()
     {
-        return $this->belongsTo(Questionnaire::class, 'id_questionnaire');
+        return $this->belongsTo(Question::class, 'id_question', 'id_question');
     }
 }

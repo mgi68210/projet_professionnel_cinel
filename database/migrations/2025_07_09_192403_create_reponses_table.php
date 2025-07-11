@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('reponses', function (Blueprint $table) {
             $table->uuid('id_utilisateur');
-            $table->uuid('id_questionnaire');
+            $table->uuid('id_question');
             $table->text('reponse_choisie');
             $table->boolean('reponse_bonne_fausse');
-            $table->primary(['id_utilisateur', 'id_questionnaire']);
             $table->timestamps();
 
+            $table->primary(['id_utilisateur', 'id_question']);
+
             $table->foreign('id_utilisateur')->references('id_utilisateur')->on('utilisateurs')->onDelete('cascade');
-            $table->foreign('id_questionnaire')->references('id_questionnaire')->on('questionnaires')->onDelete('cascade');
+            $table->foreign('id_question')->references('id_question')->on('questions')->onDelete('cascade');
         });
     }
 

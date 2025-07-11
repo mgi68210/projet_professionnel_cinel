@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -8,30 +9,45 @@ class ReponseSeeder extends Seeder
 {
     public function run(): void
     {
-        // On récupère les cours
-        $cours1 = DB::table('cours')->where('titre', 'Scénarisation')->value('id_cours');
-        $cours2 = DB::table('cours')->where('titre', 'Réalisation')->value('id_cours');
-        $cours3 = DB::table('cours')->where('titre', 'Montage Vidéo')->value('id_cours');
+        // Récupère tous les utilisateurs
+        $utilisateurs = DB::table('utilisateurs')->get();
 
-        // On récupère les quiz
-        $quiz1 = DB::table('quiz')->where('id_cours', $cours1)->value('id_quiz');
-        $quiz2 = DB::table('quiz')->where('id_cours', $cours2)->value('id_quiz');
-        $quiz3 = DB::table('quiz')->where('id_cours', $cours3)->value('id_quiz');
+        // Récupère tous les cours
+        $cours = DB::table('cours')->get();
 
-        // On insère les relations dans la table "resulte"
-        DB::table('resulte')->insert([
-            ['id_cours' => $cours1, 'id_quiz' => $quiz1],
-            ['id_cours' => $cours2, 'id_quiz' => $quiz2],
-            ['id_cours' => $cours3, 'id_quiz' => $quiz3],
-        ]);
+        // Pour chaque utilisateur
+        foreach ($utilisateurs as $utilisateur) {
 
-        // On récupère un utilisateur existant
-        $userId = DB::table('utilisateurs')->where('email',)->value('id');
+            // Pour chaque cours
+            foreach ($cours as $coursResa) {
 
-        DB::table('reservations')->insert([
-            ['id_user' => $userId, 'id_cours' => $cours1],
-            ['id_user' => $userId, 'id_cours' => $cours2],
-            ['id_user' => $userId, 'id_cours' => $cours3],
-        ]);
+                // Enregistre une réservation (si elle n'existe pas déjà)
+                DB::table('reserver')->insertOrIgnore([
+                    'id_utilisateur' => $utilisateur->id_utilisateur,
+                    'id_cours' => $coursResa->id_cours,
+                    'date_reservation' => now(),
+                    'statut' => 'validée',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                // Récupère les questions de ce cours
+                $questions = DB::table('questions')
+                    ->where('id_cours', $coursResa->id_cours)
+                    ->get();
+
+                // Pour chaque question, simule une réponse
+                foreach ($questions as $question) {
+                    DB::table('reponses')->insertOrIgnore([
+                        'id_utilisateur' => $utilisateur->id_utilisateur,
+                        'id_question' => $question->id_question,
+                        'reponse_choisie' => 'Ma réponse',
+                        'reponse_bonne_fausse' => rand(0, 1),
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
+        }
     }
 }

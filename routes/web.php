@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\ReserverController;
 use App\Http\Controllers\NoterController;
-use App\Http\Controllers\QuestionnaireController;
+use App\Http\Controllers\QuestionController;
 
 
 
@@ -55,11 +55,12 @@ Route::get('/noter', [NoterController::class, 'vueform'])->middleware('auth')->n
 Route::post('/noter', [NoterController::class, 'submit'])->middleware('auth')->name('noter.submit');
 
 
-// Questionnaire
+// Question
 
-Route::get('/quiz', [QuestionnaireController::class, 'index'])->name('quiz.index');
-Route::get('/quiz/{id_cours}', [QuestionnaireController::class, 'show'])->name('quiz.show');
-Route::post('/quiz/{id_cours}/submit', [QuestionnaireController::class, 'submit'])->name('quiz.submit');
+Route::resource('questions', QuestionController::class);
+Route::get('/quiz', [QuestionController::class, 'index'])->name('quiz.index');
+Route::get('/quiz/{id_cours}', [QuestionController::class, 'show'])->name('quiz.show');
+Route::post('/quiz/{id_cours}/submit', [QuestionController::class, 'submit'])->name('quiz.submit');
 
 
 

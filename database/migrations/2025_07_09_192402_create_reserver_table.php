@@ -16,8 +16,9 @@ return new class extends Migration
             $table->uuid('id_cours');
             $table->date('date_reservation');
             $table->string('statut', 50)->nullable();
-            $table->primary(['id_utilisateur', 'id_cours']);
             $table->timestamps();
+
+            $table->primary(['id_utilisateur', 'id_cours']);
 
             $table->foreign('id_utilisateur')->references('id_utilisateur')->on('utilisateurs')->onDelete('cascade');
             $table->foreign('id_cours')->references('id_cours')->on('cours')->onDelete('cascade');

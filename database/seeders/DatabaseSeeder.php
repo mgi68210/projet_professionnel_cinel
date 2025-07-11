@@ -16,7 +16,7 @@ public function run(): void
         UtilisateursSeeder::class,
         AdminSeeder::class,
         CoursSeeder::class,
-        QuestionnaireSeeder::class,
+        QuestionSeeder::class,
         ReponseSeeder::class,
         ReserverSeeder::class,
         NoterSeeder::class,

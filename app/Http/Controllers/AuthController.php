@@ -1,91 +1,72 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
-use Illuminate\Support\Facades\Hash; // Pour hasher les mdp
-use Illuminate\Support\Facades\Auth; // Pour se connecter automatiquement
-use App\Models\Utilisateur;          
-
+use App\Models\Utilisateur;
 
 class AuthController extends Controller
 {
-//vue connexion
     public function login()
     {
         return view('auth.login');
     }
 
-// connexion
     public function doLogin(Request $request)
     {
-//Requis= Email et mot de passe 
         $request->validate([
-            'email' => 'required',
-            'password' => 'required|min:4'
+            'email' => 'required|email',
+            'password' => 'required|min:4',
         ]);
 
-// Je cherche l'Admin avec l'email
         $admin = Admin::where('email', $request->email)->first();
 
         if ($admin && Hash::check($request->password, $admin->mot_de_passe)) {
-            Auth::login($admin); 
-            return redirect()->route('admin.index'); // page admin
+            Auth::login($admin);
+            return redirect()->route('admin.index');
         }
 
-// Connexion utilisateur et non admin
         $user = Utilisateur::where('email', $request->email)->first();
 
         if ($user && Hash::check($request->password, $user->mot_de_passe)) {
-            Auth::login($user); 
-            return redirect()->route('home'); // page utilisateur
+            Auth::login($user);
+            return redirect()->route('home');
         }
 
-// si mail non trouver = message erreur
-        return back()->withErrors([
-            'email' => 'Email ou mot de passe invalide.'
-        ])->onlyInput('email');
+        return back()->withErrors(['email' => 'Email ou mot de passe incorrect.'])->onlyInput('email');
     }
-// Déco
+
     public function logout()
     {
         Auth::logout();
         return redirect()->route('accueil');
     }
 
-// formulaire d'inscription
     public function register()
     {
-        //returne la vue
         return view('auth.register');
     }
 
-// Enregistrement de l'inscription
     public function doRegister(Request $request)
     {
-        // champs formulaires qui sont requis
         $request->validate([
-            'nom' => 'required|string|max:50',                         
-            'prenom' => 'required|string|max:50',                      
-            'email' => 'required|email|unique:utilisateurs,email',   
-            'password' => 'required|min:4|confirmed',                 
+            'nom' => 'required|string|max:50',
+            'prenom' => 'required|string|max:50',
+            'email' => 'required|email|unique:utilisateurs,email',
+            'password' => 'required|min:4|confirmed',
         ]);
 
-// création nouvel utilisateur dans la base de donnée projetcinel
         $utilisateur = Utilisateur::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'email' => $request->email,
-            'mot_de_passe' => Hash::make($request->password), // hashage du mot de passe
+            'mot_de_passe' => Hash::make($request->password),
         ]);
 
-// connexion après inscription
-        Auth::login($utilisateur); // démarrage de la session utilisateur
-
-// page d’accueil utilisateur
+        Auth::login($utilisateur);
         return redirect()->route('accueil');
     }
-
 }

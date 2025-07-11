@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('questionnaires', function (Blueprint $table) {
-            $table->uuid('id_questionnaire')->primary();
+        Schema::create('questions', function (Blueprint $table) {
+            $table->uuid('id_question')->primary();
             $table->string('type', 25);
             $table->text('texte_question');
             $table->text('texte_reponse');
             $table->uuid('id_cours');
-            $table->foreign('id_cours')->references('id_cours')->on('cours')->onDelete('cascade');
             $table->timestamps();
+
+            $table->foreign('id_cours')->references('id_cours')->on('cours')->onDelete('cascade');
+
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('questionnaires');
+        Schema::dropIfExists('questions');
     }
 };

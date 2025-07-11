@@ -17,8 +17,9 @@ return new class extends Migration
             $table->double('note_satisfaction');
             $table->text('commentaire')->nullable();
             $table->date('date_remplissage');
-            $table->primary(['id_utilisateur', 'id_cours']);
             $table->timestamps();
+
+            $table->primary(['id_utilisateur', 'id_cours']);
 
             $table->foreign('id_utilisateur')->references('id_utilisateur')->on('utilisateurs')->onDelete('cascade');
             $table->foreign('id_cours')->references('id_cours')->on('cours')->onDelete('cascade');

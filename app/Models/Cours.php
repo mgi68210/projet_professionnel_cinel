@@ -30,9 +30,9 @@ public function utilisateurs()
 }
 
 // Un cours peut avoir plusieurs questionnaires associés
-public function questionnaires()
+public function questions()
 {
-    return $this->hasMany(Questionnaire::class, 'id_cours', 'id_cours');
+    return $this->hasMany(Question::class, 'id_cours', 'id_cours');
 }
 
 // Un cours peut recevoir plusieurs notes de différents utilisateurs
