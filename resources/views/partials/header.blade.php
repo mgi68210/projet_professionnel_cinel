@@ -14,20 +14,33 @@
             <li><a href="{{ route('cours') }}">Cours</a></li>
 
             @auth
-                <li><a href="{{ route('cours.planning') }}">Planning</a></li>
-                <li><a href="{{ route('quiz.index') }}">Quiz</a></li>
-                <li><a href="{{ route('noter.form') }}">Formulaire</a></li>
+                @if(Auth::user() instanceof \App\Models\Utilisateur)
+                    <li><a href="{{ route('cours.planning') }}">Planning</a></li>
+                    <li><a href="{{ route('quiz.index') }}">Quiz</a></li>
+                    <li><a href="{{ route('noter.formulaire') }}">Formulaire</a></li>
+                @endif
+
+                @if(Auth::user() instanceof \App\Models\Admin)
+                    <li><a href="{{ route('admin.index') }}">Administration</a></li>
+                @endif
             @endauth
         </ul>
     </nav>
 
     <div class="auth-buttons">
         @auth
-            <a href="{{ route('home') }}" class="auth-btn">Profil</a>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="auth-btn">Déconnexion</button>
-            </form>
+            @if(Auth::user() instanceof \App\Models\Utilisateur)
+                <a href="{{ route('home') }}" class="auth-btn">Profil</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="auth-btn">Déconnexion</button>
+                </form>
+            @elseif(Auth::user() instanceof \App\Models\Admin)
+                <form method="POST" action="{{ route('admin.logout') }}">
+                    @csrf
+                    <button type="submit" class="auth-btn">Déconnexion</button>
+                </form>
+            @endif
         @else
             <a href="{{ route('register') }}" class="auth-btn">S'inscrire</a>
             <a href="{{ route('login') }}" class="auth-btn">Connexion</a>

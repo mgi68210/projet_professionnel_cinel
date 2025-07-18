@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReponseController extends Controller
 {
-    // ✅ Affiche toutes les réponses du user connecté
+    //Vue des réponses de l'utilisateur connecté
     public function index()
     {
         if (!Auth::check()) {
@@ -16,7 +16,7 @@ class ReponseController extends Controller
 
         $utilisateur = Auth::user();
 
-        // On récupère toutes les réponses avec la question liée
+        // Je récupère toutes les réponses avec la question liée
         $reponses = Reponse::where('id_utilisateur', $utilisateur->id_utilisateur)
                            ->with('question')
                            ->get();

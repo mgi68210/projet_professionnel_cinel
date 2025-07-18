@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\ReserverController;
 use App\Http\Controllers\NoterController;
@@ -24,17 +25,30 @@ Route::view('/cours_realisation', 'cours_realisation')->name('cours_realisation'
 
 
 
-// Authentification
+// PAGE DE CONNEXION/INSCRIPTION/DECONNEXION
+// UTILISATEUR
+Route::middleware(['is.utilisateur'])->group(function () {
+    Route::get('/home', [UtilisateurController::class, 'index'])->name('home');
+});
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'doLogin'])->name('login.do');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/login', [UtilisateurController::class, 'showLogin'])->name('login');
+Route::post('/login', [UtilisateurController::class, 'login'])->name('login.submit');
+Route::get('/register', [UtilisateurController::class, 'showRegister'])->name('register');
+Route::post('/register', [UtilisateurController::class, 'register'])->name('register.submit');
+Route::post('/logout', [UtilisateurController::class, 'logout'])->name('logout');
 
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/register', [AuthController::class, 'doRegister'])->name('register.submit');
 
-Route::get('/admin', fn() => 'Admin Dashboard')->name('admin.index');
-Route::get('/home', fn() => 'Accueil utilisateur')->name('home');
+
+// ADMIN
+Route::middleware(['is.admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+});
+
+Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+
 
 
 // Cours avec connexion
@@ -50,10 +64,15 @@ Route::delete('/cours/{id}/annuler', [ReserverController::class, 'annuler'])->na
 
 // Noter
 
+// Routes accessibles uniquement si l'utilisateur est connecté
+Route::middleware(['auth'])->group(function () {
+    Route::get('/noter', [NoterController::class, 'formulaire'])->name('noter.formulaire');
+    Route::post('/noter', [NoterController::class, 'envoyer'])->name('noter.envoyer');
 
-Route::get('/noter', [NoterController::class, 'vueform'])->middleware('auth')->name('noter.form');
-Route::post('/noter', [NoterController::class, 'submit'])->middleware('auth')->name('noter.submit');
-
+    Route::get('/noter/{id_cours}/modifier', [NoterController::class, 'modifier'])->whereUuid('id_cours')->name('noter.modifier');
+    Route::post('/noter/{id_cours}/modifier', [NoterController::class, 'MAJ'])->whereUuid('id_cours')->name('noter.MAJ');
+    Route::delete('/noter/{id_cours}', [NoterController::class, 'supprimer'])->whereUuid('id_cours')->name('noter.supprimer');
+});
 
 // Question
 
@@ -61,7 +80,6 @@ Route::resource('questions', QuestionController::class);
 Route::get('/quiz', [QuestionController::class, 'index'])->name('quiz.index');
 Route::get('/quiz/{id_cours}', [QuestionController::class, 'show'])->name('quiz.show');
 Route::post('/quiz/{id_cours}/submit', [QuestionController::class, 'submit'])->name('quiz.submit');
-
 
 
 // Page accueil par défaut

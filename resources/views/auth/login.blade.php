@@ -10,7 +10,7 @@
 <div class="auth-container">
     <h1>Connexion</h1>
 
-    <form method="POST" action="{{ route('login.do') }}">
+<form method="POST" action="{{ route('login.submit') }}"> 
         @csrf
 
         <div>

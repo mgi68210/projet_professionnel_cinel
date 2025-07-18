@@ -3,89 +3,94 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Question;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Cours;
-use Illuminate\Support\Str;
+use App\Models\Question;
+use App\Models\Reponse;
 
 class QuestionController extends Controller
 {
-    //Afficher toutes les questions
+    // Page qui affiche tous les cours avec des questions
     public function index()
     {
-        $questions = Question::with('cours')->get();
-        return view('questions.index', compact('questions'));
+        // Je récupère l'utilisateur connecté
+        $utilisateur = Auth::user();
+
+        // S'il n'est pas connecté, je le renvoie vers la page de connexion
+        if (!$utilisateur) {
+            return redirect()->route('login');
+        }
+
+        // Je récupère les cours que l'utilisateur a réservés et qui ont des questions
+        $cours = $utilisateur->cours()->whereHas('questions')->get();
+
+        // J'envoie ça à la vue
+        return view('questions.index', compact('cours'));
     }
 
-    //Formulaire pour ajouter une nouvelle question
-    public function create()
+    // Page qui affiche les questions d’un cours
+    public function show($id_cours)
     {
-        $cours = Cours::all(); // pour choisir le cours
-        return view('questions.create', compact('cours'));
+        // Je récupère l'utilisateur connecté
+        $utilisateur = Auth::user();
+
+        if (!$utilisateur) {
+            return redirect()->route('login');
+        }
+
+        // Je vérifie que l'utilisateur a bien réservé ce cours
+        if (!$utilisateur->cours->contains('id_cours', $id_cours)) {
+            return redirect()->route('questions.index')->with('error', 'Vous devez réserver ce cours.');
+        }
+
+        // Je récupère le cours et les questions
+        $cours = Cours::findOrFail($id_cours);
+        $questions = $cours->questions;
+
+        // J'affiche la vue
+        return view('questions.show', compact('cours', 'questions'));
     }
 
-    //Enregistrer une nouvelle question
-    public function store(Request $request)
+    // Quand l'utilisateur soumet ses réponses
+    public function submit(Request $request, $id_cours)
     {
-        $request->validate([
-            'type' => 'required|string|max:25',
-            'texte_question' => 'required|string',
-            'texte_reponse' => 'required|string',
-            'id_cours' => 'required|exists:cours,id_cours',
-        ]);
+        // Je vérifie que l'utilisateur est connecté
+        $utilisateur = Auth::user();
 
-        Question::create([
-            'id_question' => Str::uuid(),
-            'type' => $request->type,
-            'texte_question' => $request->texte_question,
-            'texte_reponse' => $request->texte_reponse,
-            'id_cours' => $request->id_cours,
-        ]);
+        if (!$utilisateur) {
+            return redirect()->route('login');
+        }
 
-        return redirect()->route('questions.index')->with('success', 'Question ajoutée !');
-    }
+        // Je récupère toutes les questions de ce cours
+        $questions = Question::where('id_cours', $id_cours)->get();
 
-    // Afficher une question précise
-    public function show($id)
-    {
-        $question = Question::findOrFail($id);
-        return view('questions.show', compact('question'));
-    }
+        foreach ($questions as $question) {
+            // Le nom du champ dans le formulaire
+            $champInput = 'question_' . $question->id_question;
 
-    // Formulaire d’édition d'une question
-    public function edit($id)
-    {
-        $question = Question::findOrFail($id);
-        $cours = Cours::all();
-        return view('questions.edit', compact('question', 'cours'));
-    }
+            // Je récupère la réponse tapée par l'utilisateur
+            $reponseUtilisateur = $request->input($champInput);
 
-    // Enregistrer la mise à jour
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'type' => 'required|string|max:25',
-            'texte_question' => 'required|string',
-            'texte_reponse' => 'required|string',
-            'id_cours' => 'required|exists:cours,id_cours',
-        ]);
+            // Si une réponse a été donnée
+            if ($reponseUtilisateur !== null) {
+                // Est-ce que la réponse est bonne ?
+                $estBonne = strtolower(trim($reponseUtilisateur)) === strtolower(trim($question->texte_reponse));
 
-        $question = Question::findOrFail($id);
-        $question->update([
-            'type' => $request->type,
-            'texte_question' => $request->texte_question,
-            'texte_reponse' => $request->texte_reponse,
-            'id_cours' => $request->id_cours,
-        ]);
+                // J’enregistre la réponse dans la table "reponses"
+                Reponse::updateOrCreate(
+                    [
+                        'id_utilisateur' => $utilisateur->id_utilisateur,
+                        'id_question' => $question->id_question,
+                    ],
+                    [
+                        'reponse_choisie' => $reponseUtilisateur,
+                        'reponse_bonne_fausse' => $estBonne,
+                    ]
+                );
+            }
+        }
 
-        return redirect()->route('questions.index')->with('success', 'Question mise à jour.');
-    }
-
-    // Supprimer une question
-    public function destroy($id)
-    {
-        $question = Question::findOrFail($id);
-        $question->delete();
-
-        return redirect()->route('questions.index')->with('success', 'Question supprimée.');
+        // Je redirige avec un message
+        return redirect()->route('questions.index')->with('success', 'Réponses enregistrées.');
     }
 }

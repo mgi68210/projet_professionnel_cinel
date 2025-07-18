@@ -36,7 +36,7 @@ public function questions()
 }
 
 // Un cours peut recevoir plusieurs notes de différents utilisateurs
-public function notes()
+public function noter()
 {
     return $this->hasMany(Noter::class, 'id_cours', 'id_cours');
 }

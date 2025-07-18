@@ -20,7 +20,7 @@ class Noter extends Model
         'date_remplissage',
     ];
 
-    // Chaque note appartient à un utilisateur (un utilisateur peut noter plusieurs cours)
+// Chaque note appartient à un utilisateur (un utilisateur peut noter plusieurs cours)
 public function utilisateur()
 {
     return $this->belongsTo(Utilisateur::class, 'id_utilisateur', 'id_utilisateur');

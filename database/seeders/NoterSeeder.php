@@ -10,12 +10,13 @@ class NoterSeeder extends Seeder
 {
     public function run(): void
     {
-        // Je récupère tous les utilisateurs (juste leurs IDs)
+// Je récupère tous les ID des utilisateurs
         $utilisateurs = DB::table('utilisateurs')->pluck('id_utilisateur');
 
-        // Je récupère tous les cours (juste leurs IDs aussi)
+// Je récupère tous les ID des cours
         $cours = DB::table('cours')->pluck('id_cours');
 
+// Quelques commentaires d'exemple
         $commentaires = [
             'Très bon cours !',
             'J’ai appris plein de choses',
@@ -27,28 +28,32 @@ class NoterSeeder extends Seeder
             'Top, je reviendrai !',
         ];
 
-        // Pour chaque utilisateur
+// Pour chaque utilisateur
         foreach ($utilisateurs as $utilisateurId) {
 
-            // Je prends un cours au hasard
+ // Je choisis un cours au hasard
             $coursId = $cours->random();
 
-            // Je choisis un commentaire au hasard
+// Je prends un commentaire au hasard
             $commentaire = $commentaires[array_rand($commentaires)];
 
-            // Je donne une note entre 3 et 5 
+// Je choisis une note entre 3 et 5
             $note = rand(3, 5);
 
-            // J'ajoute une ligne dans la table "noter"
-            DB::table('noter')->insert([
-                'id_utilisateur'     => $utilisateurId,
-                'id_cours'           => $coursId,
-                'note_satisfaction'  => $note,
-                'commentaire'        => $commentaire,
-                'date_remplissage'   => Carbon::now(),
-                'created_at'         => now(),
-                'updated_at'         => now(),
-            ]);
+// Je crée ou mets à jour une ligne dans la table `noter`
+            DB::table('noter')->updateOrInsert(
+                [
+                    'id_utilisateur' => $utilisateurId,
+                    'id_cours' => $coursId,
+                ],
+                [
+                    'note_satisfaction' => $note,
+                    'commentaire' => $commentaire,
+                    'date_remplissage' => Carbon::now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
         }
     }
 }

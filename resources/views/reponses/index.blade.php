@@ -1,11 +1,23 @@
-<h2>Mes réponses</h2>
+@extends('layouts.app')
 
-<ul>
-@foreach ($reponses as $reponse)
-    <li>
-        <strong>Question :</strong> {{ $reponse->question->texte_question }}<br>
-        <strong>Votre réponse :</strong> {{ $reponse->reponse_choisie }}<br>
-        <strong>Bonne réponse ?</strong> {{ $reponse->reponse_bonne_fausse ? 'Oui' : 'Non' }}
-    </li>
-@endforeach
-</ul>
+@section('content')
+<h1>Mes réponses</h1>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Question</th>
+        <th>Votre réponse</th>
+        <th>Bonne ou fausse</th>
+    </tr>
+
+    @foreach($reponses as $reponse)
+        <tr>
+            <td>{{ $reponse->question->texte_question ?? 'Question supprimée' }}</td>
+            <td>{{ $reponse->reponse_choisie }}</td>
+            <td>
+                {{ $reponse->reponse_bonne_fausse ? 'Bonne' : ' Fausse' }}
+            </td>
+        </tr>
+    @endforeach
+</table>
+@endsection

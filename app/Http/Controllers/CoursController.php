@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Auth;
 
 class CoursController extends Controller
 {
-    // Afficher tous les cours
+    //Vue de tous les cours
     public function index()
     {
         $cours = Cours::all(); // Je récupère tous les cours
         return view('cours.index', compact('cours')); // Je les envoie à la vue
     }
 
-    // Réserver un cours
+    // Fonction pour réserver un cours
     public function reserver($id)
     {
         $utilisateur = Auth::user(); // Utilisateur connecté
@@ -36,11 +36,11 @@ class CoursController extends Controller
             return redirect()->back()->with('error', 'Vous avez déjà réservé ce cours.');
         }
 
-        // Combien de personnes déjà inscrites ?
+        // Je vérifie combien de personnes sont déjà inscrites 
         $capaciteMax = $cours->capacite_max;
         $inscrits = $cours->utilisateurs_count;
 
-        // Statut : confirmé si y a de la place, sinon en attente
+        // Si il ya assez de place, le statut est confirmé, sinon il est en attente
         $statut = ($inscrits < $capaciteMax) ? 'confirmée' : 'en attente';
 
         // J’inscris l’utilisateur dans la table pivot "reserver"
@@ -57,7 +57,7 @@ class CoursController extends Controller
         return redirect()->route('cours.index')->with('success', $message);
     }
 
-    // Voir ses réservations
+    // Fonction pour voir les reservations utilisateurs
     public function mesReservations()
     {
         $utilisateur = Auth::user();
@@ -74,14 +74,14 @@ class CoursController extends Controller
         return view('cours.mes_reservations', compact('reservations'));
     }
 
-    // Voir le planning (liste globale des cours)
+    // Fonction pour voir le planning avec les cours
     public function planning()
     {
         $cours = Cours::all();
         return view('cours.planning', compact('cours'));
     }
 
-    // Page de confirmation d’un cours (par exemple avant réservation)
+    //Vue/Page de confirmation d’un cours
     public function confirmer($id)
     {
         $cours = Cours::findOrFail($id);
