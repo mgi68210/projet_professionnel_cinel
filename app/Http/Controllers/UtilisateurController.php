@@ -10,33 +10,34 @@ use App\Models\Utilisateur;
 class UtilisateurController extends Controller
 {
 // vue du formulaire de connexion
-    public function showLogin()
-    {
-        return view('auth.login_utilisateur');
-    }
+public function showLogin()
+{
+    return view('auth.login', ['role' => 'utilisateur']);
+}
 
 // traitement de la connexion
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:4',
-        ]);
+public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:4',
+    ]);
 
-        $utilisateur = Utilisateur::where('email', $request->email)->first();
+    $utilisateur = Utilisateur::where('email', $request->email)->first();
 
-        if ($utilisateur && Hash::check($request->password, $utilisateur->mot_de_passe)) {
-            Auth::guard('web')->login($utilisateur); // je stock la session ici
-            return redirect()->route('home');
-        }
-
-        return back()->withErrors(['email' => 'Email ou mot de passe incorrect'])->onlyInput('email');
+    if ($utilisateur && Hash::check($request->password, $utilisateur->mot_de_passe)) {
+        Auth::guard('web')->login($utilisateur); // démarre la session
+        return redirect()->route('home');
     }
+
+    return back()->withErrors(['email' => 'Email ou mot de passe incorrect'])->onlyInput('email');
+}
+
 
 // Vue du formulaire d'inscription
     public function showRegister()
     {
-        return view('auth.register_utilisateur');
+    return view('auth.register');
     }
 
 // Je traite l'inscription

@@ -8,9 +8,9 @@
 
 @section('content')
 <div class="auth-container">
-    <h1>Connexion</h1>
+    <h1>Connexion {{ $role === 'admin' ? 'administrateur' : 'utilisateur' }}</h1>
 
-<form method="POST" action="{{ route('login.submit') }}"> 
+    <form method="POST" action="{{ $role === 'admin' ? route('admin.login.submit') : route('login.submit') }}">
         @csrf
 
         <div>
@@ -28,6 +28,8 @@
         <button type="submit">Se connecter</button>
     </form>
 
-    <p>Pas encore de compte ? <a href="{{ route('register') }}">S'inscrire</a></p>
+    @if($role === 'utilisateur')
+        <p>Pas encore de compte ? <a href="{{ route('register') }}">S'inscrire</a></p>
+    @endif
 </div>
 @endsection

@@ -10,10 +10,11 @@ use App\Models\Admin;
 class AdminController extends Controller
 {
 // vue du formulaire de connexion
-    public function showLogin()
-    {
-        return view('auth.login_admin');
-    }
+public function showLogin()
+{
+    return view('auth.login', ['role' => 'admin']);
+}
+
 
 // Je Traite la connexion
     public function login(Request $request)
@@ -26,7 +27,7 @@ class AdminController extends Controller
         $admin = Admin::where('email', $request->email)->first();
 
         if ($admin && Hash::check($request->password, $admin->mot_de_passe)) {
-            Auth::guard('admin')->login($admin);
+            Auth::guard('admin')->login($admin);// stock la session ici
             return redirect()->route('admin.index');
         }
 

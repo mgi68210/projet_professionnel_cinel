@@ -10,7 +10,7 @@
 <div class="auth-container">
     <h1>Inscription</h1>
 
-<form method="POST" action="{{ route('register.submit') }}">
+    <form method="POST" action="{{ route('register.submit') }}">
         @csrf
 
         <div>
