@@ -8,9 +8,9 @@
 
 @section('content')
 <div class="auth-container">
-    <h1>Connexion {{ $role === 'admin' ? 'administrateur' : 'utilisateur' }}</h1>
+    <h1>Connexion</h1>
 
-    <form method="POST" action="{{ $role === 'admin' ? route('admin.login.submit') : route('login.submit') }}">
+    <form method="POST" action="{{ route('login.submit') }}">
         @csrf
 
         <div>
@@ -25,11 +25,18 @@
             @error('password') <div class="error">{{ $message }}</div> @enderror
         </div>
 
+        <div>
+            <label>Connexion en tant que :</label>
+            <select name="role" required>
+                <option value="utilisateur">Utilisateur</option>
+                <option value="admin">Administrateur</option>
+            </select>
+            @error('role') <div class="error">{{ $message }}</div> @enderror
+        </div>
+
         <button type="submit">Se connecter</button>
     </form>
 
-    @if($role === 'utilisateur')
-        <p>Pas encore de compte ? <a href="{{ route('register') }}">S'inscrire</a></p>
-    @endif
+    <p>Pas encore de compte ? <a href="{{ route('register') }}">S'inscrire</a></p>
 </div>
 @endsection

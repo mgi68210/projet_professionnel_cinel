@@ -28,22 +28,27 @@
     </nav>
 
     <div class="auth-buttons">
-        @auth
-            @if(Auth::user() instanceof \App\Models\Utilisateur)
-                <a href="{{ route('home') }}" class="auth-btn">Profil</a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="auth-btn">Déconnexion</button>
-                </form>
-            @elseif(Auth::user() instanceof \App\Models\Admin)
-                <form method="POST" action="{{ route('admin.logout') }}">
-                    @csrf
-                    <button type="submit" class="auth-btn">Déconnexion</button>
-                </form>
-            @endif
-        @else
-            <a href="{{ route('register') }}" class="auth-btn">S'inscrire</a>
-            <a href="{{ route('login') }}" class="auth-btn">Connexion</a>
-        @endauth
+    @if(Auth::guard('admin')->check())
+
+        <a href="{{ route('admin.index') }}" class="auth-btn">Admin</a>
+        <form method="POST" action="{{ route('admin.logout') }}">
+            @csrf
+            <button type="submit" class="auth-btn">Déconnexion</button>
+        </form>
+
+    @elseif(Auth::guard('web')->check())
+
+        <a href="{{ route('home') }}" class="auth-btn">Profil</a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="auth-btn">Déconnexion</button>
+        </form>
+        
+    @else
+        <a href="{{ route('register') }}" class="auth-btn">S'inscrire</a>
+        <a href="{{ route('login') }}" class="auth-btn">Connexion</a>
+    @endif
+</div>
+
     </div>
 </header>

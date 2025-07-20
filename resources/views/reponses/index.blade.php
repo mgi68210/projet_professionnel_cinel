@@ -1,23 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Mes réponses</h1>
+<h1>Quiz disponibles</h1>
 
-<table border="1" cellpadding="10">
-    <tr>
-        <th>Question</th>
-        <th>Votre réponse</th>
-        <th>Bonne ou fausse</th>
-    </tr>
+@if(session('success'))
+    <p style="color: green">{{ session('success') }}</p>
+@endif
 
-    @foreach($reponses as $reponse)
-        <tr>
-            <td>{{ $reponse->question->texte_question ?? 'Question supprimée' }}</td>
-            <td>{{ $reponse->reponse_choisie }}</td>
-            <td>
-                {{ $reponse->reponse_bonne_fausse ? 'Bonne' : ' Fausse' }}
-            </td>
-        </tr>
-    @endforeach
-</table>
+@auth
+    <p>
+        <a href="{{ route('reponses.index') }}">Mes réponses</a>
+    </p>
+@endauth
+
+@if($cours->isEmpty())
+    <p>Vous n'avez aucun cours avec des quiz pour l’instant.</p>
+@else
+    <ul>
+        @foreach($cours as $coursItem)
+            <li>
+                {{ $coursItem->titre }} — 
+                <a href="{{ route('quiz.show', $coursItem->id_cours) }}">Voir les questions</a>
+            </li>
+        @endforeach
+    </ul>
+@endif
 @endsection

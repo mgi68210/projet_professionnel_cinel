@@ -40,7 +40,7 @@ public function cours()
 
 //Un utilisateur peut laisser plusieurs avis (notes et commentaires) sur les cours.
 
-    public function avis()
+    public function noter()
     {
         return $this->hasMany(Noter::class, 'id_utilisateur', 'id_utilisateur');
     }

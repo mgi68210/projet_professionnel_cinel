@@ -7,6 +7,8 @@ use App\Http\Controllers\CoursController;
 use App\Http\Controllers\ReserverController;
 use App\Http\Controllers\NoterController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ReponseController;
+
 
 
 
@@ -76,10 +78,12 @@ Route::middleware(['auth'])->group(function () {
 
 // Question
 
-Route::resource('questions', QuestionController::class);
-Route::get('/quiz', [QuestionController::class, 'index'])->name('quiz.index');
-Route::get('/quiz/{id_cours}', [QuestionController::class, 'show'])->name('quiz.show');
-Route::post('/quiz/{id_cours}/submit', [QuestionController::class, 'submit'])->name('quiz.submit');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/quiz', [QuestionController::class, 'index'])->name('quiz.index');
+    Route::get('/quiz/{id_cours}', [QuestionController::class, 'show'])->name('quiz.show');
+    Route::post('/quiz/{id_cours}/submit', [QuestionController::class, 'submit'])->name('quiz.submit');
+    Route::get('/mes-reponses', [ReponseController::class, 'index'])->name('reponses.index');
+});
 
 
 // Page accueil par défaut
