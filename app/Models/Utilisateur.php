@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
+
+
 class Utilisateur extends Authenticatable
 {
     use HasUuids;
@@ -28,7 +30,7 @@ class Utilisateur extends Authenticatable
     }
 
 
- //Un utilisateur peut réserver plusieurs cours (relation many-to-many).
+    //Un utilisateur peut réserver plusieurs cours (relation many-to-many).
 //Table pivot : reserver
 public function cours()
 {

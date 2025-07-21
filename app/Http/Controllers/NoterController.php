@@ -18,7 +18,7 @@ class NoterController extends Controller
         $utilisateur = Auth::user();
 
         // je récupère tous les cours réservés par l’utilisateur
-        $coursReserves = $utilisateur->cours;
+        $coursReserves = $utilisateur->cours; 
 
         // filter = garde que les cours PAS encore notés
         $coursANoter = $coursReserves->filter(function ($cours) use ($utilisateur) {
@@ -85,7 +85,7 @@ class NoterController extends Controller
                      ->where('id_cours', $id_cours)
                      ->firstOrFail();
 
-        return view('noter.modifier', compact('note', 'cours'));
+        return view('noter6666666666||66.modifier', compact('note', 'cours'));
     }
 
     // Je fais la mise à jour de la note

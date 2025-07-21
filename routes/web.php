@@ -80,8 +80,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quiz', [QuestionController::class, 'index'])->name('quiz.index');
-    Route::get('/quiz/{id_cours}', [QuestionController::class, 'show'])->name('quiz.show');
-    Route::post('/quiz/{id_cours}/submit', [QuestionController::class, 'submit'])->name('quiz.submit');
+    Route::get('/quiz/{id_cours}', [QuestionController::class, 'show'])->whereUuid('id_cours')->name('quiz.show');
+    Route::post('/quiz/{id_cours}/submit', [QuestionController::class, 'submit'])->whereUuid('id_cours')->name('quiz.submit');
     Route::get('/mes-reponses', [ReponseController::class, 'index'])->name('reponses.index');
 });
 
