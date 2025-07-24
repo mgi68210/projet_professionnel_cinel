@@ -40,7 +40,7 @@ class Reserver extends Model
         'statut',
     ];
 
-  // Une réservation appartient à un seul utilisateur
+// Une réservation appartient à un seul utilisateur
 public function utilisateur()
 {
     return $this->belongsTo(Utilisateur::class, 'id_utilisateur');

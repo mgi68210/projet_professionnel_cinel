@@ -6,8 +6,8 @@
             <img src="{{ asset('images/imagesaccueil/logo.png') }}" alt="Logo CINEL" />
         </div>
 
-        <div class="footer-links-wrapper">
-            <div class="footer-links">
+        <div class="footer-liens-group">
+            <div class="footer-liens">
                 <ul>
                     <li><a href="#">CGV/CGU</a></li>
                     <li><a href="#">FAQ</a></li>
@@ -15,7 +15,7 @@
                 </ul>
             </div>
 
-            <div class="footer-links">
+            <div class="footer-liens">
                 <ul>
                     <li><a href="mailto:nelsongilot4@gmail.com">Contact</a></li>
                     <li><a href="https://www.hmewrk.com/" target="_blank">Site</a></li>

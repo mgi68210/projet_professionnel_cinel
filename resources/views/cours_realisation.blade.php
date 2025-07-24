@@ -22,23 +22,24 @@
     </section>
 
     <div class="container">
-        <div class="text-side">
+        <div class="texte-cote">
             <h2>Déroulement des séances</h2>
-            <ul>
-                <li>Préparation d'un projet de court-métrage</li>
-                <li>Direction des acteurs</li>
-                <li>Organisation du tournage</li>
-                <li>Tournage et supervision technique</li>
+            <ul><br>
+                <li>Préparation d'un projet de court-métrage</li><br>
+                <li>Direction des acteurs</li><br>
+                <li>Organisation du tournage</li><br>
+                <li>Tournage et supervision technique</li><br>
             </ul>
-
-            <h2>Matériel et Prérequis</h2>
-            <p>Carnet de notes et stylo recommandés.</p>
-
-            <h2>Tarifs et Inscription</h2>
-            <p>Se référer à la grille tarifaire.</p>
+            <br>
+            <h2>Matériel et Prérequis</h2><br>
+            <p>Carnet de notes et stylo recommandés.</p><br>
+            <br>
+            <h2>Tarifs et Inscription</h2><br>
+            <p>Se référer à la grille tarifaire.</p><br>
         </div>
+            <br>
 
-        <div class="image-side">
+        <div class="image-cote">
             <img src="{{ asset('images/imagesrealisation/real2.png') }}" alt="real">
         </div>
     </div>

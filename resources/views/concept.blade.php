@@ -10,22 +10,22 @@
 
     <!-- SECTION image principale avec flèches -->
     <section class="images-section">
-        <div class="main-image">
-            <button class="prev-btn"></button>
+        <div class="principale-image">
+            <button class="plus-btn"></button>
             <img id="img1" src="images/imagesconcept/1.jpeg">
-            <button class="next-btn"></button>
+            <button class="moins-btn"></button>
         </div>
     </section>
 
     <!-- SECTION galerie d’images -->
-    <div class="gallery">
+    <div class="galerie">
     <img id="img1" src="images/imagesconcept/1.jpeg">
     <img id="img2" src="images/imagesconcept/2.jpeg">
     <img id="img3" src="images/imagesconcept/3.jpeg">
     </div>
 
     <!-- SECTION texte en diagonale -->
-    <section class="concept-list-diagonale">
+    <section class="concept-liste-diagonale">
         <div class="item">
             <h3>Un Espace Dédié aux Passionnés de Cinéma</h3>
             <p>Notre plateforme propose des ateliers immersifs pour apprendre les techniques du cinéma, de l'écriture au montage, en passant par la mise en scène. Tous niveaux acceptés.</p>
@@ -44,7 +44,7 @@
         </div>
     </section>
     <!-- SECTION bannière finale -->
-    <section class="banner">
+    <section class="cta">
         <p>Rejoignez-nous et explorez l’univers du cinéma autrement !</p>
     </section>
 @endsection

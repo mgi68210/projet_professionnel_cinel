@@ -21,7 +21,7 @@ body {
 }
 
 /* Nouveau conteneur global pour l’info-tarif + image */
-.info-tarif-container {
+.info-container {
   display: flex;
   align-items: center;       
   justify-content: center;  
@@ -32,25 +32,25 @@ body {
   box-sizing: border-box;
 }
 
-.info-tarif {
+.info {
   flex: 1;
   min-width: 300px;        
 }
 
-.image-tarif img {
+.image-info img {
   height: auto;
   border-radius: 1rem;
   flex-shrink: 0;
 }
 
 
-.info-tarif h2 {
+.info h2 {
   color: #5c3c2a;
   font-size: 2.2rem;
   margin-bottom: 0.5rem;
 }
 
-.info-tarif p {
+.info p {
   font-size: 1.4rem;
   line-height: 1.5;
 }
@@ -69,33 +69,33 @@ body {
 }
 
 /* IMAGE À GAUCHE */
-.image-side img {
+.image-cote img {
   width: 700px;            
   height: auto;
   display: block;       
 }
 
 /* TEXTE À DROITE */
-.text-side {
+.texte-cote {
   flex: 1;              
   padding: 4rem;           
   display: flex;
   flex-direction: column;  
   justify-content: center;  
 }
-.text-side h2 {
+.texte-cote h2 {
   color: #5c3c2a;
   font-size: 2.2rem;
   margin-top: 0;    
 }
        
-.text-side p,
-.text-side ul {
+.texte-cote p,
+.texte-cote ul {
   font-size: 1.4rem;
   margin: 0;
   padding: 0;
 }
-.text-side ul {
+.texte-cote ul {
   list-style: disc;
   padding-left: 1rem;       
   margin-top: 1rem;       

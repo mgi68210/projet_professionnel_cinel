@@ -47,32 +47,32 @@ body {
 }
 
 /* IMAGE À GAUCHE */
-.image-side img {
+.image-cote img {
   width: 700px;             
   height: auto;
   display: block;/* jE retire les espaces blancs sous l’image */
 }
 
 /* TEXTE À DROITE */
-.text-side {
+.texte-cote {
   flex: 1;                 
   padding: 4rem;           
   display: flex;
   flex-direction: column; 
   justify-content: center;/* Je centre le contenu verticalement dans le conteneur */
 }
-.text-side h2 {
+.texte-cote h2 {
   color: #5c3c2a;
   font-size: 2.2rem;
   margin-top: 0;          
 }
-.text-side p,
-.text-side ul {
+.texte-cote p,
+.texte-cote ul {
   font-size: 1.4rem;
   margin: 0;
   padding: 0;
 }
-.text-side ul {
+.texte-cote ul {
   list-style: disc;
   padding-left: 1rem;       
   margin-top: 1rem;       

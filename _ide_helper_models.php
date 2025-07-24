@@ -30,6 +30,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Admin whereNom($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Admin wherePrenom($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Admin whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Admin extends \Eloquent {}
 }
@@ -61,6 +62,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Cours whereTitre($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Cours whereTrancheAge($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Cours whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Cours extends \Eloquent {}
 }
@@ -86,6 +88,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Noter whereIdUtilisateur($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Noter whereNoteSatisfaction($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Noter whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Noter extends \Eloquent {}
 }
@@ -112,6 +115,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Question whereTexteReponse($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Question whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Question whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Question extends \Eloquent {}
 }
@@ -135,6 +139,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Reponse whereReponseBonneFausse($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Reponse whereReponseChoisie($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Reponse whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Reponse extends \Eloquent {}
 }
@@ -158,6 +163,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Reserver whereIdUtilisateur($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Reserver whereStatut($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Reserver whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Reserver extends \Eloquent {}
 }
@@ -186,8 +192,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
-	class User extends \Eloquent {}
+	class User_old extends \Eloquent {}
 }
 
 namespace App\Models{

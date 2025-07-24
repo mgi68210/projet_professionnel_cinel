@@ -20,7 +20,7 @@
   </section>
 
   <div class="container">
-    <div class="text-side">
+    <div class="texte-cote">
       <h2>Déroulement des séances</h2>
       <ul><br>
       <br>
@@ -38,7 +38,7 @@
       <br>
       <p>Se référer à la grille tarifaire.</p><br>
     </div>
-        <div class="image-side">
+        <div class="image-cote">
       <img src="images/imagesproduction/prod2.png" alt="prod2">
     </div>
   </div>

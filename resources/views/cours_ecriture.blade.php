@@ -20,10 +20,10 @@
   </section>
 
   <div class="container">
-    <div class="image-side">
+    <div class="image-cote">
       <img src="images/imagesecriture/scénario2.png" alt="Scénario 2">
     </div>
-    <div class="text-side">
+    <div class="texte-cote">
       <h2>Déroulement des séances</h2>
       <ul><br>
       <br>

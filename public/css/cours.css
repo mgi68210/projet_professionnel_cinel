@@ -15,7 +15,7 @@
   color: #5c3c2a;
 }
 
-.cours-list {
+.cours-liste {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
@@ -79,7 +79,7 @@
   display: block;
 }
 
-.cours-infos-text {
+.cours-infos-texte {
   flex: 1;
   padding: 2rem;
   background: #f9f9f9;
@@ -89,7 +89,7 @@
   justify-content: center;
 }
 
-.cours-infos-text h2 {
+.cours-infos-texte h2 {
   color: #5c3c2a;
   margin-bottom: 1.5rem;
   font-size: 2.2rem;
@@ -97,14 +97,14 @@
   font-weight: bold;
 }
 
-.cours-infos-text p {
+.cours-infos-texte p {
   margin-bottom: 1.5rem;
   color: #333;
   font-size: 1.2rem;
   line-height: 1.5;
 }
 
-.cours-infos-text ul {
+.cours-infos-texte ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -115,7 +115,7 @@
   gap: 1.2rem;
 }
 
-.cours-infos-text ul li {
+.cours-infos-texte ul li {
   color: #333;
   font-size: 1.3rem;
   font-weight: 500;
@@ -125,13 +125,13 @@
   line-height: 1.4;
 }
 
-.cours-infos-text ul li span {
+.cours-infos-texte ul li span {
   font-size: 2rem;
   filter: grayscale(100%);
   flex-shrink: 0;
 }
 
-.cours-infos-text ul li strong {
+.cours-infos-texte ul li strong {
   display: block;
   font-size: 1.3rem;
   font-weight: bold;
@@ -146,8 +146,8 @@
   flex-wrap: nowrap;
 }
 
-.cours-left,
-.cours-right {
+.cours-gauche,
+.cours-droite {
   flex: 1;
   min-width: 320px;
   box-sizing: border-box;
@@ -155,25 +155,25 @@
   flex-direction: column;
 }
 
-.cours-left h2 {
+.cours-gauche h2 {
   font-size: 2rem;
   color: #5c3c2a;
   margin-bottom: 0.5rem;
 }
 
-.cours-left h3 {
+.cours-gauche h3 {
   margin-top: 1rem;
   font-size: 1.3rem;
   color: #333;
 }
 
-.cours-left p {
+.cours-gauche p {
   color: #555;
   margin-bottom: 0.5rem;
   line-height: 1.5;
 }
 
-.cours-left ul {
+.cours-gauche ul {
   padding-left: 1.2rem;
   list-style: disc;
   margin-bottom: 1rem;
@@ -189,11 +189,11 @@
   color: #333;
 }
 
-.cours-right {
+.cours-droite {
   flex: 1;
 }
 
-.cours-right table {
+.cours-droite table {
   width: 100%;
   flex: 1;
   border-collapse: collapse;
@@ -202,21 +202,21 @@
   height: 100%;
 }
 
-.cours-right th,
-.cours-right td {
+.cours-droite th,
+.cours-droite td {
   padding: 0.8rem;
   border: 1px solid #ddd;
   text-align: center;
   vertical-align: middle;
 }
 
-.cours-right th {
+.cours-droite th {
   background: #dad7d7;
   color: #000000;
   font-weight: bold;
 }
 
-.cours-right tbody tr:nth-child(even) {
+.cours-droite tbody tr:nth-child(even) {
   background: #f8f8f8;
 }
 
@@ -225,11 +225,11 @@
     flex-direction: column;
   }
 
-  .cours-infos-text {
+  .cours-infos-texte {
     padding: 1rem 0;
   }
 
-  .cours-infos-text h2 {
+  .cours-infos-texte h2 {
     text-align: center;
   }
 }
@@ -240,8 +240,8 @@
     align-items: stretch;
   }
 
-  .cours-left,
-  .cours-right {
+  .cours-gauche,
+  .cours-droite {
     width: 100%;
     min-width: 0;
   }

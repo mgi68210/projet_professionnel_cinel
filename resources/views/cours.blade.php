@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- SECTION PETITES IMAGES COURS -->
-<section class="cours-list">
+<section class="cours-liste">
   <a href="{{ url('cours_ecriture') }}" class="cours-item">
     <img src="{{ asset('images/imagescours/Scénarisation.jpg') }}" alt="Scénarisation">
     <p>Scénarisation</p>
@@ -36,7 +36,7 @@
   <div class="cours-infos-image">
     <img src="{{ asset('images/imagescours/Imagecours.jpg') }}" alt="Illustration cours">
   </div>
-  <div class="cours-infos-text">
+  <div class="cours-infos-texte">
     <h2>Plongez dans l'Art du Cinéma</h2>
     <p>Découvrez comment nos cours transforment votre passion en expertise grâce à des techniques et connaissances approfondies.</p>
     <ul>
@@ -51,7 +51,7 @@
 
 <!-- SECTION TARIFS -->
 <section class="cours-tarifs">
-  <div class="cours-left">
+  <div class="cours-gauche">
     <h2>Horaires et Tarifs des Cours</h2>
     <h3>Un Accès Simplifié Grâce au Soutien de la Mairie</h3>
     <p>Tarifs Réduits : Grâce à la mairie, les ateliers sont accessibles à tous.</p>
@@ -68,7 +68,7 @@
     <div class="cours-note"> Inscriptions au service culturel de la mairie de Plessis-Trévise.</div>
   </div>
 
-  <div class="cours-right">
+  <div class="cours-droite">
     <table>
       <thead>
         <tr>

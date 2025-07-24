@@ -13,10 +13,10 @@
     </section>
 
 <div class="container">
-  <div class="image-side">
+  <div class="image-cote">
     <img src="images/imagesmontage/Montage1.png" alt="Montage">
   </div>
-  <div class="text-side">
+  <div class="texte-cote">
 
     <h2>Objectif du cours</h2><br>
     <p>Maîtrisez l'art du montage : rythme, continuité, effets et narration. Apprenez à utiliser des logiciels professionnels comme Premiere Pro ou DaVinci Resolve.</p><br>
@@ -37,12 +37,12 @@
 </div>
 
 
-<div class="info-tarif-container">
-  <section class="info-tarif">
+<div class="info-container">
+  <section class="info">
     <h2>Tarifs et Inscription</h2>
     <p>Se référer à la grille tarifaire.</p>
   </section>
-  <div class="image-tarif">
+  <div class="image-info">
     <img src="images/imagesmontage/Montage2.png" alt="Montage">
   </div>
 </div>

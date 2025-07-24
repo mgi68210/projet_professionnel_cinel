@@ -13,8 +13,8 @@
   </section>
 
   <!-- SECTION 1 : Texte à gauche, image à droite -->
-  <div class="container image-right">
-    <div class="text-side">
+  <div class="container image-droite">
+    <div class="texte-cote">
       <h2>Objectif du cours</h2>
       <p>Ce cours explore l’art de l’image au cinéma : cadrage, lumière, composition et mouvements de caméra.</p><br>
       <br>
@@ -29,17 +29,17 @@
       <h2>Matériel et Prérequis</h2>
       <p>Aucun prérequis n’est nécessaire. Le matériel est fourni.</p>
     </div>
-    <div class="image-side">
+    <div class="image-cote">
       <img src="images/imagescinema/cine2.png" alt="cinéma">
     </div>
   </div>
 
   <!-- SECTION 2 : Image à gauche, texte à droite -->
-  <div class="container image-left">
-    <div class="image-side">
+  <div class="container image-gauche">
+    <div class="image-cote">
       <img src="images/imagescinema/cine1.png" alt="cinéma">
     </div>
-    <div class="text-side">
+    <div class="texte-cote">
       <h2>Tarifs et Inscription</h2>
       <p>Se référer à la grille tarifaire.</p>
     </div>

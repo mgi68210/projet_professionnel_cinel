@@ -30,6 +30,7 @@ public function index()
     return view('questions.index', compact('cours'));
 }
 
+
     // Affiche les questions d’un cours réservé
     public function show($id_cours)
     {
@@ -39,13 +40,13 @@ public function index()
 
         $utilisateur = Auth::user();
 
-        // Je vérifie si l’utilisateur a bien réservé ce cours
+    // Je vérifie si l’utilisateur a bien réservé ce cours
         $cours = $utilisateur->cours->where('id_cours', $id_cours)->first();
         if (!$cours) {
             return redirect('/quiz')->with('error', 'Vous devez réserver ce cours pour accéder aux questions.');
         }
 
-        // Je récupère toutes les questions liées à ce cours
+    // Je récupère toutes les questions liées à ce cours
         $questions = $cours->questions;
 
         return view('questions.show', compact('cours', 'questions'));
