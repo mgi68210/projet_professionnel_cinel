@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use App\Models\Cours;
 use App\Models\Question;
+use Illuminate\Support\Facades\DB;
 
 class QuestionSeeder extends Seeder
 {
@@ -14,44 +15,38 @@ class QuestionSeeder extends Seeder
         $coursList = Cours::all();
 
         foreach ($coursList as $cours) {
+            $questionTexte = '';
+            $reponses = '';
 
-            if ($cours->titre === 'Scénarisation') {
-                Question::create([
-                    'id_question' => (string) Str::uuid(),
-                    'type' => 'QCM',
-                    'texte_question' => 'Qu’est-ce qu’un protagoniste ?',
-                    'texte_reponse' => 'Le héros||Le personnage secondaire||Le personnage principal||Le figurant',
-                    'id_cours' => $cours->id_cours,
-                ]);
+            switch ($cours->titre) {
+                case 'Scénarisation':
+                    $questionTexte = 'Quel est le rôle du protagoniste ?';
+                    $reponses = 'Le héros||Le figurant||Le personnage principal||Le décorateur';
+                    break;
 
-                Question::create([
-                    'id_question' => (string) Str::uuid(),
-                    'type' => 'QCM',
-                    'texte_question' => 'Quel est l’objectif principal d’un scénario ?',
-                    'texte_reponse' => 'Informer||Divertir||Structurer une histoire||Présenter un acteur',
-                    'id_cours' => $cours->id_cours,
-                ]);
+                case 'Réalisation':
+                    $questionTexte = 'Que fait un réalisateur ?';
+                    $reponses = 'Il filme||Il écrit la musique||Il monte les scènes||Il éclaire';
+                    break;
+
+                case 'Montage Vidéo':
+                    $questionTexte = 'Quel est l’objectif du montage ?';
+                    $reponses = 'Rendre la vidéo fluide||Ajouter du son||Créer les costumes||Filmer les scènes';
+                    break;
+
+                default:
+                    $questionTexte = 'Question générique pour le cours ' . $cours->titre;
+                    $reponses = 'Réponse A||Réponse B||Réponse C||Réponse D';
+                    break;
             }
 
-            if ($cours->titre === 'Réalisation') {
-                Question::create([
-                    'id_question' => (string) Str::uuid(),
-                    'type' => 'Vrai/Faux',
-                    'texte_question' => 'Un plan séquence est une scène tournée en une seule prise.',
-                    'texte_reponse' => 'Vrai',
-                    'id_cours' => $cours->id_cours,
-                ]);
-            }
-
-            if ($cours->titre === 'Montage Vidéo') {
-                Question::create([
-                    'id_question' => (string) Str::uuid(),
-                    'type' => 'Vrai/Faux',
-                    'texte_question' => "Le champ contrechamp consiste à alterner deux plans montrant les interlocuteurs d'une même scène.",
-                    'texte_reponse' => 'Vrai',
-                    'id_cours' => $cours->id_cours,
-                ]);
-            }
+            Question::create([
+                'id_question' => (string) Str::uuid(),
+                'type' => 'QCM',
+                'texte_question' => $questionTexte,
+                'texte_reponse' => $reponses,
+                'id_cours' => $cours->id_cours,
+            ]);
         }
     }
 }

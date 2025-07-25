@@ -76,17 +76,17 @@ public function index()
             $reponseUtilisateur = $request->input($champ);
 
             if ($reponseUtilisateur !== null) {
-                $estBonne = strtolower(trim($reponseUtilisateur)) === strtolower(trim($question->texte_reponse));
+                $estBonne =($reponseUtilisateur) === ($question->texte_reponse);
 
                 // J’enregistre ou je mets à jour la réponse
                 Reponse::updateOrCreate(
                     [
                         'id_utilisateur' => $utilisateur->id_utilisateur,
-                        'id_question' => $question->id_question,
+                        'id_question' => $question->id_question
                     ],
                     [
                         'reponse_choisie' => $reponseUtilisateur,
-                        'reponse_bonne_fausse' => $estBonne,
+                        'reponse_bonne_fausse' => $estBonne
                     ]
                 );
             }

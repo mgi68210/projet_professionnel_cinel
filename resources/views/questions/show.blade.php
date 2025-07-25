@@ -10,11 +10,11 @@
             <div style="margin-bottom: 20px;">
                 <p><strong>{{ $question->texte_question }}</strong></p>
 
-                @php
-                    $options = explode('||', $question->texte_reponse);
-                @endphp
+                @if($question->type === 'QCM')
+                    @php
+                        $options = explode('||', $question->texte_reponse);
+                    @endphp
 
-                @if($question->type === 'QCM' && count($options) > 1)
                     @foreach($options as $option)
                         <div>
                             <label>

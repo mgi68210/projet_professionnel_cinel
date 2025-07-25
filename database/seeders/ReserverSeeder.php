@@ -31,7 +31,7 @@ class ReserverSeeder extends Seeder
             $statut = $statuts[array_rand($statuts)]; // array_rand() choisit un index au hasard
 
     //  J'enregistre une nouvelle réservation dans la table "reserver"
-            DB::table('reserver')->insert([
+    DB::table('reserver')->insertOrIgnore([
                 'id_utilisateur'    => $utilisateurId,               
                 'id_cours'          => $coursId,              
                 'date_reservation'  => Carbon::now(),         
