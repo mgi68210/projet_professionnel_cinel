@@ -1,31 +1,33 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/noter/modifier.css') }}">
+@endsection
+
 @section('content')
 
-<h2>Modifier votre avis</h2>
+<div class="avis-container">
+    <h2>Modifier votre avis</h2>
 
-<form method="POST" action="{{ route('noter.MAJ', $cours->id_cours) }}">
-    @csrf
+    <form method="POST" action="{{ route('noter.MAJ', $cours->id_cours) }}">
+        @csrf
 
-    <p><strong>Cours :</strong> {{ $cours->titre }}</p>
+        <p><strong>Cours :</strong> {{ $cours->titre }}</p>
 
-    <label>Note (1 à 5) :</label>
-    <select name="note" required>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-    </select>
+        <label for="note">Note (1 à 5) :</label>
+        <select name="note" id="note" required>
+            @for ($i = 1; $i <= 5; $i++)
+                <option value="{{ $i }}" {{ $note->note_satisfaction == $i ? 'selected' : '' }}>
+                    {{ $i }}
+                </option>
+            @endfor
+        </select>
 
-    <br><br>
+        <label for="commentaire">Commentaire :</label>
+        <textarea name="commentaire" id="commentaire" rows="4">{{ $note->commentaire }}</textarea>
 
-    <label>Commentaire :</label><br>
-    <textarea name="commentaire" rows="4" cols="40">{{ $note->commentaire }}</textarea>
-
-    <br><br>
-
-    <button type="submit">Modifier</button>
-</form>
+        <button type="submit">Modifier</button>
+    </form>
+</div>
 
 @endsection

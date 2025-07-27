@@ -58,12 +58,14 @@ class Utilisateur extends Authenticatable
 
     //Un utilisateur peut réserver plusieurs cours (relation many-to-many).
 //Table pivot : reserver
+
 public function cours()
 {
     return $this->belongsToMany(Cours::class, 'reserver', 'id_utilisateur', 'id_cours')
-                ->withPivot('date_reservation', 'statut')
-                ->withTimestamps();
+        ->withPivot('date_reservation', 'statut')
+        ->withTimestamps();
 }
+
 
 
 //Un utilisateur peut laisser plusieurs avis (notes et commentaires) sur les cours.

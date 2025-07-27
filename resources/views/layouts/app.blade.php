@@ -6,15 +6,13 @@
     <title>@yield('title', 'CINEL')</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
     @yield('styles')
 </head>
-<body>
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
 
     @include('partials.header')
 
-    {{-- corps de texte --}}
-    <main>
+    <main style="flex: 1;">
         @yield('content')
     </main>
 

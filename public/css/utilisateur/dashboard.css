@@ -1,0 +1,131 @@
+
+
+.dashboard-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  color: #5c3c2a;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.info-personnelles {
+  margin-bottom: 40px;
+}
+
+.info-personnelles h2,
+.tableau-reservations h2 {
+  color: #5c3c2a;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.info-personnelles p {
+  margin: 5px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.tableau-reservations table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.tableau-reservations th,
+.tableau-reservations td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.tableau-reservations thead {
+  background-color: #f5f0e6;
+}
+
+.tableau-reservations td.actions {
+  white-space: nowrap;
+}
+
+.actions a,
+.actions button {
+  display: inline-block;
+  margin-right: 8px;
+  margin-top: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.actions a {
+  background-color: #e6f0ff;
+  color: #003366;
+}
+
+.actions a:hover {
+  background-color: #d0e5ff;
+}
+
+.actions button {
+  background-color: #fce0e0;
+  color: #a63434;
+  border: 1px solid #d44a4a;
+}
+
+.actions button:hover {
+  background-color: #f8cccc;
+}
+
+/* Responsive (mobile/tablette) */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 20px;
+  }
+
+  .tableau-reservations table,
+  .tableau-reservations thead,
+  .tableau-reservations tbody,
+  .tableau-reservations th,
+  .tableau-reservations td,
+  .tableau-reservations tr {
+    display: block;
+    width: 100%;
+  }
+
+  .tableau-reservations tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff8f0;
+  }
+
+  .tableau-reservations td {
+    padding: 10px;
+    border: none;
+    position: relative;
+  }
+
+  .tableau-reservations td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    color: #5c3c2a;
+    margin-bottom: 5px;
+  }
+
+  .tableau-reservations td.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

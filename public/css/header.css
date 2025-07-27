@@ -9,9 +9,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  position: relative;
+  padding: 16px 32px;
+  background-color: #ffffff;
 }
 
 .logo img {
@@ -26,28 +25,28 @@ nav {
 
 nav ul {
   list-style: none;
-  display: inline-flex;
-  gap: 1rem;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
 }
 
 nav ul li a {
   text-decoration: none;
-  color: #333;
-  padding: 0.5rem 1rem;
+  color: #333333;
+  padding: 8px 16px;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 8px;
 }
 
 .auth-btn {
-  background-color: #000;
-  color: #fff;
-  padding: 0.4rem 0.8rem;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 8px 16px;
   border: none;
   border-radius: 4px;
+  font-size: 14px;
   cursor: pointer;
 }
-.auth-buttons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-
-

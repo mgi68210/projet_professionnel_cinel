@@ -13,6 +13,8 @@ class IsAdmin
             return $next($request);
         }
 
-        return redirect()->route('admin.login');
+        return redirect('/admin/login')->with('error', 'Accès réservé à l’administration.');
     }
 }
+
+

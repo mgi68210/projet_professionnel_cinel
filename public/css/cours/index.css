@@ -1,0 +1,26 @@
+.btn-reserver {
+  background-color: #f5f0e6;
+  border: 1px solid #ccc;
+  color: #5c3c2a;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-reserver:hover {
+  background-color: #f2e8d8;
+}
+
+.btn-annuler {
+  background-color: #fff2f2;
+  border: 1px solid #cc0000;
+  color: #b00000;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-annuler:hover {
+  background-color: #ffe5e5;
+}

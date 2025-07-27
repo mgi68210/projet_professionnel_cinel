@@ -5,13 +5,13 @@ body {
 }
 
 .auth-container {
-  width: 90%;
-  max-width: 400px;
-  margin: 50px auto;
+  width: 90%;               
+  max-width: 400px;         
+  margin: 50px auto;     
   padding: 20px;
   background-color: white;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 8px;       
 }
 
 .auth-container h1 {
@@ -36,7 +36,7 @@ body {
 .auth-container button {
   width: 100%;
   padding: 10px;
-  background-color: #754526;
+  background-color: #754526;  
   color: white;
   border: none;
   border-radius: 4px;
@@ -45,7 +45,7 @@ body {
 }
 
 .auth-container button:hover {
-  background-color: #5e361e;
+  background-color: #5e361e; 
 }
 
 .auth-container p {

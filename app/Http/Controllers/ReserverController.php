@@ -38,4 +38,17 @@ class ReserverController extends Controller
 
         return redirect()->route('cours.mes_reservations')->with('success', 'Réservation enregistrée.');
     }
+
+     public function annuler($id)
+    {
+        $utilisateur = Auth::user();
+
+        if (!$utilisateur) {
+            return redirect()->route('login')->with('error', 'Veuillez vous connecter.');
+        }
+
+        $utilisateur->cours()->detach($id);
+
+        return redirect()->route('cours.liste')->with('success', 'Votre réservation a été annulée.');
+    }
 }

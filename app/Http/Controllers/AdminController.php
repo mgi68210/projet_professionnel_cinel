@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
+use App\Models\Reserver;
+use App\Models\Noter;
 
 class AdminController extends Controller
 {
@@ -41,8 +43,25 @@ public function showLogin()
         return redirect()->route('accueil');
     }
 
-    public function index()
-    {
-        return view('admin.dashboard');
-    }
+ public function index()
+{
+    $admin = Auth::guard('admin')->user();
+
+    $reservations = Reserver::with(['utilisateur', 'cours'])->get();
+    $avis = Noter::with(['utilisateur', 'cours'])->latest()->get();
+
+    $totalReservations = $reservations->count();
+    $utilisateursActifs = $reservations->groupBy('id_utilisateur')->count();
+    $noteMoyenne = Noter::avg('note_satisfaction');
+
+    return view('admin.index', compact(
+        'admin',
+        'reservations',
+        'avis',
+        'totalReservations',
+        'utilisateursActifs',
+        'noteMoyenne'
+    ));
+}
+
 }

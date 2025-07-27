@@ -29,9 +29,10 @@ Route::view('/cours_realisation', 'cours_realisation')->name('cours_realisation'
 
 // PAGE DE CONNEXION/INSCRIPTION/DECONNEXION
 // UTILISATEUR
-Route::middleware(['is.utilisateur'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/home', [UtilisateurController::class, 'index'])->name('home');
 });
+
 
 Route::get('/login', [UtilisateurController::class, 'showLogin'])->name('login');
 Route::post('/login', [UtilisateurController::class, 'login'])->name('login.submit');
@@ -42,9 +43,15 @@ Route::post('/logout', [UtilisateurController::class, 'logout'])->name('logout')
 
 
 // ADMIN
-Route::middleware(['is.admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-});
+Route::get('/admin', function () {
+    if (!Auth::guard('admin')->check()) {
+        return redirect()->route('admin.login')->with('error', 'Connectez-vous en tant qu’admin.');
+    }
+
+    return app(\App\Http\Controllers\AdminController::class)->index();
+})->name('admin.index');
+
+
 
 Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
@@ -55,7 +62,7 @@ Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.lo
 
 // Cours avec connexion
 
-
+Route::get('/mes-cours', [CoursController::class, 'index'])->middleware('auth')->name('cours.index');
 Route::get('/cours-liste', [CoursController::class, 'index'])->name('cours.liste');
 Route::get('/planning', [CoursController::class, 'planning'])->name('cours.planning');
 Route::get('/cours/{id}/confirmer', [CoursController::class, 'confirmer'])->name('cours.confirmer');

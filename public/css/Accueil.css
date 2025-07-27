@@ -1,4 +1,3 @@
-/* RESET GÉNÉRAL */
 * {
   margin: 0;
   padding: 0;
@@ -6,47 +5,34 @@
   font-family: Arial, sans-serif;
 }
 
-
-/* HERO SECTION */
 .cam {
   display: flex;
-  align-items: stretch;
-  background-color: #000;  
-  padding: 0;              
-  margin: 0;              
-  min-height: 100vh;      
-  width: 100%;          
+  background-color: black;
+  min-height: 100vh;
 }
 
 .cam-image {
-  flex: 0 0 50%;
+  width: 50%;
   overflow: hidden;
-  border-radius: 200px 0 200px 0;/* forme diagonale */
-  margin: 0;            
-  padding: 0;            
-  background: #000;     
+  border-radius: 200px 0 200px 0;
   margin-top: 5rem;
-
 }
-
 
 .cam-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.7);/* Je zoomer l'image à l'intérieur */
-  transform-origin: center;
+  transform: scale(1.7);
 }
 
 .cam-text {
   flex: 1;
+  color: white;
   padding: 3rem;
-  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;/* le titre à gauche */
-  text-align: left;
+  align-items: flex-start;
 }
 
 .cam-text h1 {
@@ -55,76 +41,53 @@
   line-height: 1;
 }
 
-.cam-button {
-  background: #fff;
-  color: #000;
-  padding: 1rem 3rem;
-  min-width: 450px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  font-weight: bold;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
-  align-self: flex-start;
-  text-decoration: none; 
-}
-
 .cam-text p {
   font-size: 1.2rem;
   opacity: 0.85;
-  max-width: 450px;       
+  max-width: 450px;
   line-height: 1.4;
-  text-align: left;        
-  align-self: flex-start; 
 }
 
-.cam-button span {
-  font-size: 1.5rem;
-  line-height: 1;
+.cam-button {
+  background-color: white;
+  color: black;
+  padding: 1rem 3rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  min-width: 450px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-
-
-
-/* SECTION COMMENT ÇA MARCHE */
 .marche {
   padding: 4rem 2rem;
-  background: #f9f9f9;
+  background-color: #f9f9f9;
   text-align: center;
 }
 
 .marche-header {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
 }
 
 .marche-text {
   flex: 1;
   min-width: 250px;
+  text-align: left;
 }
 
 .marche-text h2 {
-  color: #754526;
   font-size: 40px;
-  margin-bottom: 0.5rem;
-  text-align: left;
+  color: #754526;
 }
 
 .marche-text p {
   font-size: 20px;
   color: #333;
-  text-align: left;
-
 }
 
 .marche-image {
@@ -134,16 +97,15 @@
 
 .marche-image img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 16/9;/* rectangle horizontal */
+  aspect-ratio: 16/9;
   object-fit: cover;
 }
 
 .marche-list {
   display: flex;
-  justify-content: start;
   gap: 3rem;
   margin-top: 2rem;
+  justify-content: start;
 }
 
 .etape {
@@ -153,20 +115,19 @@
 
 .etape .number {
   background: #754526;
-  color: #fff;
+  color: white;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  font-size: 1.2rem;
-  font-weight: bold;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }
 
 .etape h3 {
+  margin-top: 0.5rem;
   font-size: 1.1rem;
-  margin: 0.5rem 0;
 }
 
 .etape p {
@@ -174,30 +135,25 @@
   color: #555;
 }
 
-
-
-/* SECTION OÙ NOUS TROUVER */
 .localisation {
   padding: 4rem 2rem;
   background: #f9f9f9;
 }
 
 .localisation-container {
-  max-width: 900px;
-  margin: 0 auto;
   display: flex;
-  align-items: center;
   gap: 2rem;
+  max-width: 900px;
+  margin: auto;
+  align-items: center;
 }
 
 .localisation-image {
-  flex: 0 0 auto;
   max-width: 320px;
 }
 
 .localisation-image img {
   width: 100%;
-  height: auto;
   object-fit: cover;
 }
 
@@ -207,9 +163,8 @@
 }
 
 .localisation-info h2 {
-  color:#754526;
   font-size: 40px;
-  margin-bottom: 0.5rem;
+  color: #754526;
 }
 
 .localisation-info p {
@@ -218,29 +173,29 @@
   line-height: 1.4;
 }
 
-
-
-/* RESPONSIVE */
 @media (max-width: 768px) {
+  .cam {
+    flex-direction: column;
+  }
+
+  .cam-image {
+    width: 100%;
+    border-radius: 0;
+    margin-top: 0;
+  }
+
+  .cam-text {
+    align-items: center;
+    text-align: center;
+  }
+
+  .cam-button {
+    min-width: auto;
+  }
+
   .marche-list,
-  .localisation-container,
-  .footer-columns {
+  .localisation-container {
     flex-direction: column;
-    align-items: center;
     text-align: center;
-  }
-
-  .localisation-info {
-    text-align: center;
-  }
-
-  .footer-links-wrapper {
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  .footer-logo {
-    margin: 0 auto 2rem auto;
   }
 }

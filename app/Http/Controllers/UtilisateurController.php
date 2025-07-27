@@ -94,8 +94,13 @@ class UtilisateurController extends Controller
     }
 
     //PAGE D’ACCUEIL utilisateur après connexion
-    public function index()
-    {
-        return view('utilisateur.dashboard'); 
-    }
+public function index()
+{
+    $utilisateur = Auth::user();
+
+    $coursReserves = Auth::user()->cours()->with('noter')->get();
+
+    return view('utilisateur.dashboard', compact('utilisateur', 'coursReserves'));
+}
+
 }
