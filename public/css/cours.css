@@ -2,6 +2,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
   font-family: Arial, sans-serif;
 }
 
@@ -112,11 +115,14 @@
   gap: 0.8rem;
   font-size: 1.3rem;
   color: #333;
+  align-items: center;
 }
 
-.cours-infos-texte ul li span {
-  font-size: 2rem;
-  filter: grayscale(100%);
+.cours-infos-texte ul li span img {
+  width: 35px;
+  height: 35px;
+  display: block;
+  object-fit: contain;
 }
 
 .cours-tarifs {
@@ -171,7 +177,7 @@
   width: 100%;
   border-collapse: collapse;
   background: #fff;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
 .cours-droite th,
@@ -188,6 +194,14 @@
 
 .cours-droite tbody tr:nth-child(even) {
   background: #f8f8f8;
+}
+
+.cours-liste-titre {
+  width: 100%;
+  text-align: center;
+  font-size: 2.5rem;
+  color: #5c3c2a;
+  margin-bottom: 2rem;
 }
 
 @media (max-width: 768px) {
@@ -208,4 +222,15 @@
   .cours-note {
     margin-top: 1rem;
   }
+
+  .cours-liste {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cours-item {
+    width: 100%;
+    max-width: 320px;
+  }
 }
+

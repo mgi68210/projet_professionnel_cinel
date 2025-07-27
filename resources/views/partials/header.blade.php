@@ -1,9 +1,10 @@
-<header>
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+{{-- Place ce lien CSS dans ta section @section('styles') --}}
+<link rel="stylesheet" href="{{ asset('css/header.css') }}">
 
+<header>
     <div class="logo">
         <a href="{{ route('accueil') }}">
-            <img src="{{ asset('images/imagesaccueil/logo.png') }}" alt="Logo CINEL">
+            <img src="{{ asset('images/icons/CINEL.svg') }}" alt="Logo CINEL">
         </a>
     </div>
 
@@ -30,14 +31,12 @@
                 @csrf
                 <button type="submit" class="auth-btn">Déconnexion</button>
             </form>
-
         @elseif(Auth::guard('web')->check())
             <a href="{{ route('home') }}" class="auth-btn">Profil</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="auth-btn">Déconnexion</button>
             </form>
-
         @else
             <a href="{{ route('register') }}" class="auth-btn">S'inscrire</a>
             <a href="{{ route('login') }}" class="auth-btn">Connexion</a>

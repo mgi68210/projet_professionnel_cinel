@@ -34,7 +34,7 @@
                     url: `{{ url('/cours') }}/${c.id_cours}/confirmer`
                 })),
                 eventClick: function(info) {
-                    info.jsEvent.preventDefault(); // empêche ouverture dans une nouvelle fenêtre
+                    info.jsEvent.preventDefault(); 
                     if (info.event.url) {
                         window.location.href = info.event.url;
                     }

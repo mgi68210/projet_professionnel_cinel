@@ -47,3 +47,36 @@ footer {
 .footer-liens a:hover {
   text-decoration: underline;  
 }
+
+@media (max-width: 768px) {
+  footer .footer-columns {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  footer .footer-logo img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  footer .footer-liens-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+footer .footer-liens ul {
+  padding-left: 1rem;
+  list-style: disc;
+}
+
+  footer .footer-liens ul li {
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
+}

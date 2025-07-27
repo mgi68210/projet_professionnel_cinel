@@ -9,8 +9,13 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 32px;
-  background-color: #ffffff;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .logo img {
@@ -19,34 +24,81 @@ header {
 }
 
 nav {
-  flex: 1;
-  text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 nav ul {
   list-style: none;
   display: flex;
-  gap: 16px;
-  justify-content: center;
+  gap: 1rem;
 }
 
 nav ul li a {
   text-decoration: none;
-  color: #333333;
-  padding: 8px 16px;
+  color: #333;
+  padding: 0.5rem 1rem;
 }
 
 .auth-buttons {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .auth-btn {
-  background-color: #000000;
-  color: #ffffff;
-  padding: 8px 16px;
+  background-color: #000;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .logo {
+    order: 0;
+    margin-bottom: 1rem;
+  }
+
+  .auth-buttons {
+    order: 1;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+  }
+
+  .auth-buttons a.auth-btn,
+  .auth-buttons form button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+
+  nav {
+    order: 2;
+    width: 100%;
+  }
+
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 0.5rem 0;
+    text-align: left;
+  }
 }

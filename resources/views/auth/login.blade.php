@@ -25,15 +25,6 @@
             @error('password') <div class="error">{{ $message }}</div> @enderror
         </div>
 
-        <div>
-            <label>Connexion en tant que :</label>
-            <select name="role" required>
-                <option value="utilisateur">Utilisateur</option>
-                <option value="admin">Administrateur</option>
-            </select>
-            @error('role') <div class="error">{{ $message }}</div> @enderror
-        </div>
-
         <button type="submit">Se connecter</button>
     </form>
 

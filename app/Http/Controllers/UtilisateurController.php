@@ -17,37 +17,30 @@ class UtilisateurController extends Controller
     }
 
 // On traite la connexion
-    public function login(Request $request)
-    {
-        
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:4',
-            'role' => 'required|in:admin,utilisateur', // j'attends un "admin" ou un "utilisateur"
-        ]);
+   // On traite la connexion
+public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:4',
+    ]);
 
-// Je choisis le bon "guard" et modèle selon le rôle
-        $guard = $request->role === 'admin' ? 'admin' : 'web'; // web = un utilisateur normal
-        $model = $request->role === 'admin' ? Admin::class : Utilisateur::class;
-        $passwordField = 'mot_de_passe'; // c’est comme ça que s’appelle le champ en base
-
-// Je cherche l’utilisateur/ou l'admin dans la base avec son email
-        $personneco = $model::where('email', $request->email)->first();
-
-// Je vérifie le mot de passe
-        if ($personneco && Hash::check($request->password, $personneco->$passwordField)) {
-// Si c'est bon, je connecte l’utilisateur avec le bon guard
-            Auth::guard($guard)->login($personneco);
-
-// Je le redirige vers sa page dédiée
-            return $guard === 'admin'
-                ? redirect()->route('admin.index')   
-                : redirect()->route('home');        
-        }
-
-
-        return back()->withErrors(['email' => 'Email ou mot de passe incorrect'])->onlyInput('email');
+// Je cherche d’abord un admin avec cet email
+    $admin = Admin::where('email', $request->email)->first();
+    if ($admin && Hash::check($request->password, $admin->mot_de_passe)) {
+        Auth::guard('admin')->login($admin); // je connecte en tant qu'admin
+        return redirect()->route('admin.index');
     }
+
+// Sinon je tente en tant qu'utilisateur normal
+    $utilisateur = Utilisateur::where('email', $request->email)->first();
+    if ($utilisateur && Hash::check($request->password, $utilisateur->mot_de_passe)) {
+        Auth::guard('web')->login($utilisateur); // je connecte en tant qu'utilisateur
+        return redirect()->route('home');
+    }
+
+    return back()->withErrors(['email' => 'Email ou mot de passe incorrect'])->onlyInput('email');
+}
 
 // Affichage d'un formulaire d'inscription unique à l'utilisateur
     public function showRegister()
