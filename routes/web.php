@@ -33,7 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [UtilisateurController::class, 'index'])->name('home');
 });
 
-
 Route::get('/login', [UtilisateurController::class, 'showLogin'])->name('login');
 Route::post('/login', [UtilisateurController::class, 'login'])->name('login.submit');
 Route::get('/register', [UtilisateurController::class, 'showRegister'])->name('register');
@@ -43,20 +42,13 @@ Route::post('/logout', [UtilisateurController::class, 'logout'])->name('logout')
 
 
 // ADMIN
-Route::get('/admin', function () {
-    if (!Auth::guard('admin')->check()) {
-        return redirect()->route('admin.login')->with('error', 'Connectez-vous en tant qu’admin.');
-    }
-
-    return app(\App\Http\Controllers\AdminController::class)->index();
-})->name('admin.index');
-
-
-
 Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+});
 
 
 

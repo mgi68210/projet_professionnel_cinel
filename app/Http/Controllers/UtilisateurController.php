@@ -3,97 +3,74 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;    
-use Illuminate\Support\Facades\Hash;  
-use App\Models\Utilisateur;      
-use App\Models\Admin;                 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Utilisateur;
 
 class UtilisateurController extends Controller
 {
-// J'AFFICHE LA PAGE DE CONNEXION = page commune pour utilisateur ET admin
+// J'affiche le formulaire de connexion
     public function showLogin()
     {
         return view('auth.login');
     }
+// Traitement de la connexion utilisateur
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:4',
+        ]);
 
-// On traite la connexion
-   // On traite la connexion
-public function login(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required|min:4',
-    ]);
+        $utilisateur = Utilisateur::where('email', $request->email)->first();
 
-// Je cherche d’abord un admin avec cet email
-    $admin = Admin::where('email', $request->email)->first();
-    if ($admin && Hash::check($request->password, $admin->mot_de_passe)) {
-        Auth::guard('admin')->login($admin); // je connecte en tant qu'admin
-        return redirect()->route('admin.index');
+        if ($utilisateur && Hash::check($request->password, $utilisateur->mot_de_passe)) {
+            Auth::login($utilisateur); // guard "web" utilisé par défaut
+            return redirect()->route('home');
+        }
+
+        return back()->withErrors(['email' => 'Email ou mot de passe incorrect'])->onlyInput('email');
     }
 
-// Sinon je tente en tant qu'utilisateur normal
-    $utilisateur = Utilisateur::where('email', $request->email)->first();
-    if ($utilisateur && Hash::check($request->password, $utilisateur->mot_de_passe)) {
-        Auth::guard('web')->login($utilisateur); // je connecte en tant qu'utilisateur
-        return redirect()->route('home');
-    }
-
-    return back()->withErrors(['email' => 'Email ou mot de passe incorrect'])->onlyInput('email');
-}
-
-// Affichage d'un formulaire d'inscription unique à l'utilisateur
+// Pour afficher le formulaire d’inscription
     public function showRegister()
     {
         return view('auth.register');
     }
 
-// traitement de l'inscription
+// traitement de l'inscription utiisateur
     public function register(Request $request)
     {
-// Je vérifie que les données sont bien remplies
         $request->validate([
             'nom' => 'required|string|max:50',
             'prenom' => 'required|string|max:50',
-            'email' => 'required|email|unique:utilisateurs,email', 
-            'password' => 'required|min:4|confirmed',             
+            'email' => 'required|email|unique:utilisateurs,email',
+            'password' => 'required|min:4|confirmed',
         ]);
 
-// Je crée un nouvel utilisateur
         $utilisateur = Utilisateur::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'email' => $request->email,
-            'mot_de_passe' => Hash::make($request->password), 
+            'mot_de_passe' => Hash::make($request->password),
         ]);
 
-// Je connecte l’utilisateur automatiquement après inscription
-        Auth::guard('web')->login($utilisateur);
+        Auth::login($utilisateur);
 
         return redirect()->route('home');
     }
 
-// DECONNEXION (admin OU utilisateur)
-    public function logout(Request $request)
+    public function logout()
     {
-// Je vérifie d’abord qui est connecté
-        if (Auth::guard('admin')->check()) {
-            Auth::guard('admin')->logout();   
-        } elseif (Auth::guard('web')->check()) {
-            Auth::guard('web')->logout();    
-        }
-
+        Auth::logout();
         return redirect()->route('accueil');
     }
+// vue de profil utilisateur
+    public function index()
+    {
+        $utilisateur = Auth::user();
+        $coursReserves = $utilisateur->cours()->with('noter')->get();
 
-    //PAGE D’ACCUEIL utilisateur après connexion
-public function index()
-{
-    $utilisateur = Auth::user();
-
-    $coursReserves = Auth::user()->cours()->with('noter')->get();
-
-    return view('utilisateur.dashboard', compact('utilisateur', 'coursReserves'));
-}
-
+        return view('utilisateur.dashboard', compact('utilisateur', 'coursReserves'));
+    }
 }
