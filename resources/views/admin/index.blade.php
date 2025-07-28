@@ -19,7 +19,6 @@
         <p><strong>Email :</strong> {{ $admin->email }}</p>
     </div>
 
-    {{-- Réservations triées par cours --}}
     <div class="section">
         <h2>Réservations par cours</h2>
 
@@ -58,7 +57,6 @@
         @endforelse
     </div>
 
-    {{-- Avis des participants --}}
     <div class="section">
         <h2>Avis des participants</h2>
         @if($avis->isEmpty())
@@ -78,7 +76,6 @@
         @endif
     </div>
 
-    {{-- Statistiques --}}
     <div class="section">
         <h2>Statistiques</h2>
         <p><strong>Réservations totales :</strong> {{ $totalReservations }}</p>

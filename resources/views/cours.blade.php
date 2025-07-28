@@ -34,7 +34,6 @@
   </a>
 </section>
 
-  <!-- SECTION INFOS -->
   <section class="cours-infos" aria-labelledby="infos-cinema">
     <div class="cours-infos-image">
       <img src="{{ asset('images/imagescours/Imagecours.jpg') }}" alt="Vue d'ensemble des ateliers cinéma">
@@ -67,7 +66,6 @@
     </div>
   </section>
 
-  <!-- SECTION TARIFS -->
   <section class="cours-tarifs" aria-labelledby="titre-tarifs">
     <div class="cours-gauche">
       <h2 id="titre-tarifs">Horaires et Tarifs des Cours</h2>

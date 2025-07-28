@@ -85,7 +85,6 @@ h1 {
   background-color: #f8cccc;
 }
 
-/* Responsive (mobile/tablette) */
 @media (max-width: 768px) {
   .dashboard-container {
     padding: 20px;

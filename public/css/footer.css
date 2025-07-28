@@ -1,7 +1,9 @@
 footer {
   background-color: black;  
   color: white;              
-  padding: 2rem;           
+  padding: 2rem;
+  font-family: "Century Gothic", "Arial", sans-serif;
+           
 }
 
 .footer-columns {
