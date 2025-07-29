@@ -4,12 +4,13 @@
     padding: 30px;
     background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(6, 6, 6, 0.08);
     font-family: "Century Gothic", "Arial", sans-serif;
 }
 
+/* Titres */
 .admin-dashboard h1 {
-    color: #5c3c2a;
+    color: #422d26;
     font-size: 28px;
     margin-bottom: 30px;
     text-align: center;
@@ -20,10 +21,10 @@
 }
 
 .section h2 {
-    color: #5c3c2a;
+    color: #754526;
     font-size: 22px;
     margin-bottom: 15px;
-    border-bottom: 2px solid #f0e6dc;
+    border-bottom: 2px solid #dec7a8;
     padding-bottom: 5px;
 }
 
@@ -34,7 +35,7 @@
 .cours-block h3 {
     margin-top: 20px;
     font-size: 18px;
-    color: #3b261a;
+    color: #422d26;
 }
 
 table {
@@ -42,28 +43,28 @@ table {
     border-collapse: collapse;
     margin-top: 10px;
     font-size: 14px;
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
 table thead {
-    background-color: #f5f0e6;
+    background-color: #d3d0c4;
 }
 
 table th,
 table td {
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #b9b5a4;
     text-align: left;
 }
 
 table th {
-    color: #5c3c2a;
+    color: #060606;
     font-weight: bold;
 }
 
 .avis {
-    background-color: #fdf8f4;
-    border-left: 4px solid #d8b38c;
+    background-color: #f6f3f3;
+    border-left: 4px solid #cf8c53;
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 6px;
@@ -71,15 +72,78 @@ table th {
 
 .avis p {
     margin: 5px 0;
-    color: #333;
+    color: #060606;
 }
 
 hr {
     border: none;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #d3d0c4;
     margin: 15px 0;
 }
 
 p {
-    color: #444;
+    color: #060606;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    margin-right: 5px;
+}
+
+.btn-success {
+    background-color: #cf8c53;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #754526;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #422d26;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: #422d26;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #b9b5a4;
+    border-radius: 6px;
+    margin-top: 5px;
+    font-size: 14px;
+    background-color: #f6f3f3;
+    color: #060606;
+}
+
+input[type="text"]:focus,
+input[type="datetime-local"]:focus,
+textarea:focus {
+    border-color: #cf8c53;
+    outline: none;
+}
+
+button[type="submit"] {
+    margin-top: 10px;
 }

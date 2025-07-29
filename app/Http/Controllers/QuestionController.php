@@ -10,7 +10,7 @@ use App\Models\Reponse;
 
 class QuestionController extends Controller
 {
-    // ✅ Liste des cours avec quiz pour l’utilisateur connecté
+    // Liste des cours avec quiz pour l’utilisateur connecté
     public function index()
     {
         if (!Auth::check()) {
@@ -30,7 +30,7 @@ class QuestionController extends Controller
         return view('questions.index', compact('cours'));
     }
 
-    // ✅ Affiche les questions d’un cours
+    //  Affiche les questions d’un cours
     public function show($id_cours)
     {
         if (!Auth::check()) {
@@ -49,7 +49,7 @@ class QuestionController extends Controller
         return view('questions.show', compact('cours', 'questions'));
     }
 
-    // ✅ Enregistre les réponses
+    // Enregistre les réponses
     public function submit(Request $request, $id_cours)
     {
         if (!Auth::check()) {
@@ -70,7 +70,7 @@ class QuestionController extends Controller
             $reponseUtilisateur = $request->input($champ);
 
             if ($reponseUtilisateur !== null) {
-                // 💡 Extraction de la bonne réponse depuis texte_reponse
+                // Extraction de la bonne réponse depuis texte_reponse
                 $options = explode('||', $question->texte_reponse);
                 $bonneReponse = null;
 

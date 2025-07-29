@@ -11,12 +11,10 @@ use App\Models\Noter;
 
 class AdminController extends Controller
 {
-
     public function showLogin()
     {
-        return view('admin.login'); // On utilise la vue resources/views/admin/login.blade.php
+        return view('admin.login');
     }
-
 
     public function login(Request $request)
     {
@@ -28,13 +26,12 @@ class AdminController extends Controller
         $admin = Admin::where('email', $request->email)->first();
 
         if ($admin && Hash::check($request->password, $admin->mot_de_passe)) {
-            Auth::guard('admin')->login($admin); // Utilise le guard "admin"
-            return redirect()->route('admin.index'); 
+            Auth::guard('admin')->login($admin);
+            return redirect()->route('admin.index');
         }
 
-        return back()->withErrors(['email' => 'Email ou mot de passe incorrect'])->onlyInput('email');
+        return back()->withErrors(['email' => 'Email ou mot de passe incorrect']);
     }
-
 
     public function logout()
     {
@@ -42,11 +39,10 @@ class AdminController extends Controller
         return redirect()->route('accueil');
     }
 
-// dashboard admin
+    // Tableau de bord admin
     public function index()
     {
         $admin = Auth::guard('admin')->user();
-
         $reservations = Reserver::with(['utilisateur', 'cours'])->get();
         $avis = Noter::with(['utilisateur', 'cours'])->latest()->get();
 
@@ -61,6 +57,7 @@ class AdminController extends Controller
             'totalReservations',
             'utilisateursActifs',
             'noteMoyenne'
+         
         ));
     }
 }

@@ -9,26 +9,31 @@ use App\Http\Controllers\NoterController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ReponseController;
 
+/*
+|--------------------------------------------------------------------------
+| Routes Web
+|--------------------------------------------------------------------------
+*/
 
-
+// Page d'accueil par défaut
+Route::get('/', fn() => redirect()->route('accueil'));
 
 // Pages statiques
-
-
 Route::view('/accueil', 'accueil')->name('accueil');
 Route::view('/concept', 'concept')->name('concept');
-Route::view('/cours', 'cours')->name('cours');
+Route::view('/cours', 'cours')->name('cours'); // Statique
 Route::view('/cours_cinema', 'cours_cinema')->name('cours_cinema');
 Route::view('/cours_ecriture', 'cours_ecriture')->name('cours_ecriture');
 Route::view('/cours_montage', 'cours_montage')->name('cours_montage');
 Route::view('/cours_production', 'cours_production')->name('cours_production');
 Route::view('/cours_realisation', 'cours_realisation')->name('cours_realisation');
 
+/*
+|--------------------------------------------------------------------------
+| Authentification Utilisateur
+|--------------------------------------------------------------------------
+*/
 
-
-
-// PAGE DE CONNEXION/INSCRIPTION/DECONNEXION
-// UTILISATEUR
 Route::middleware('auth')->group(function () {
     Route::get('/home', [UtilisateurController::class, 'index'])->name('home');
 });
@@ -39,43 +44,67 @@ Route::get('/register', [UtilisateurController::class, 'showRegister'])->name('r
 Route::post('/register', [UtilisateurController::class, 'register'])->name('register.submit');
 Route::post('/logout', [UtilisateurController::class, 'logout'])->name('logout');
 
+/*
+|--------------------------------------------------------------------------
+| Authentification Admin
+|--------------------------------------------------------------------------
+*/
 
-
-// ADMIN
 Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+
+    // Gestion des cours par l'admin
+    Route::get('/admin/cours/create', [CoursController::class, 'create'])->name('admin.cours.create');
+    Route::post('/admin/cours', [CoursController::class, 'store'])->name('admin.cours.store');
+    Route::get('/admin/cours/{id}/edit', [CoursController::class, 'edit'])->name('admin.cours.edit');
+    Route::put('/admin/cours/{id}', [CoursController::class, 'update'])->name('admin.cours.update');
+    Route::delete('/admin/cours/{id}', [CoursController::class, 'destroy'])->name('admin.cours.destroy');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Cours & Planning (utilisateurs & admin)
+|--------------------------------------------------------------------------
+*/
 
-
-// Cours avec connexion
-
-Route::get('/mes-cours', [CoursController::class, 'index'])->middleware('auth')->name('cours.index');
-Route::get('/cours-liste', [CoursController::class, 'index'])->name('cours.liste');
+// Vue dynamique des cours (planning interactif)
 Route::get('/planning', [CoursController::class, 'planning'])->name('cours.planning');
-Route::get('/cours/{id}/confirmer', [CoursController::class, 'confirmer'])->name('cours.confirmer');
-Route::post('/cours/{id}/reserver', [CoursController::class, 'reserver'])->name('cours.reserver');
-Route::get('/mes-reservations', [CoursController::class, 'mesReservations'])->middleware('auth')->name('cours.mes_reservations');
-Route::delete('/cours/{id}/annuler', [ReserverController::class, 'annuler'])->name('cours.annuler');
 
+// API pour les données du calendrier (JSON)
+Route::get('/api/cours', fn() => \App\Models\Cours::all())->name('api.cours');
 
-// Noter
+// Réservations (auth utilisateur)
+Route::middleware('auth')->group(function () {
+    Route::get('/mes-cours', [CoursController::class, 'index'])->name('cours.index');
+    Route::get('/cours/{id}/confirmer', [CoursController::class, 'confirmer'])->whereUuid('id')->name('cours.confirmer');
+    Route::post('/cours/{id}/reserver', [CoursController::class, 'reserver'])->whereUuid('id')->name('cours.reserver');
+    Route::get('/mes-reservations', [CoursController::class, 'mesReservations'])->name('cours.mes_reservations');
+    Route::delete('/cours/{id}/annuler', [ReserverController::class, 'annuler'])->whereUuid('id')->name('cours.annuler');
+});
 
-// Routes accessibles uniquement si l'utilisateur est connecté
+/*
+|--------------------------------------------------------------------------
+| Notation
+|--------------------------------------------------------------------------
+*/
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/noter', [NoterController::class, 'formulaire'])->name('noter.formulaire');
     Route::post('/noter', [NoterController::class, 'envoyer'])->name('noter.envoyer');
-
     Route::get('/noter/{id_cours}/modifier', [NoterController::class, 'modifier'])->whereUuid('id_cours')->name('noter.modifier');
     Route::post('/noter/{id_cours}/modifier', [NoterController::class, 'MAJ'])->whereUuid('id_cours')->name('noter.MAJ');
     Route::delete('/noter/{id_cours}', [NoterController::class, 'supprimer'])->whereUuid('id_cours')->name('noter.supprimer');
 });
 
-// Question
+/*
+|--------------------------------------------------------------------------
+| Quiz / Questions
+|--------------------------------------------------------------------------
+*/
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quiz', [QuestionController::class, 'index'])->name('quiz.index');
@@ -83,9 +112,3 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/quiz/{id_cours}/submit', [QuestionController::class, 'submit'])->whereUuid('id_cours')->name('quiz.submit');
     Route::get('/mes-reponses', [ReponseController::class, 'index'])->name('reponses.index');
 });
-
-
-// Page accueil par défaut
-
-
-Route::get('/', fn() => redirect()->route('accueil'));

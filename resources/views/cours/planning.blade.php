@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <h1>Planning des Cours</h1>
     <p style="text-align:center;">Cliquez sur un cours pour réserver.</p>
@@ -11,7 +10,6 @@
   <link rel="stylesheet" href="{{ asset('css/cours/planning.css') }}">
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
 @endsection
-
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
     <script>

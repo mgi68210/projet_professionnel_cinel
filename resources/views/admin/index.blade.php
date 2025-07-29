@@ -11,12 +11,36 @@
 <div class="admin-dashboard">
     <h1>Bienvenue, {{ $admin->prenom }}</h1>
 
-    {{-- Informations personnelles --}}
     <div class="section">
         <h2>Informations personnelles</h2>
         <p><strong>Nom :</strong> {{ $admin->nom }}</p>
         <p><strong>Prénom :</strong> {{ $admin->prenom }}</p>
         <p><strong>Email :</strong> {{ $admin->email }}</p>
+    </div>
+
+    <div class="section">
+        <h2>Gestion des cours</h2>
+        <a href="{{ route('admin.cours.create') }}" class="btn btn-success">Ajouter un cours</a>
+
+        <ul>
+            @foreach(\App\Models\Cours::all() as $cours)
+                <li>
+                    <strong>{{ $cours->titre }}</strong>
+                    ({{ \Carbon\Carbon::parse($cours->date_heure)->format('d/m/Y H:i') }})
+
+                    <a href="{{ route('admin.cours.edit', $cours->id_cours) }}" class="btn btn-primary">Modifier</a>
+
+                    <form action="{{ route('admin.cours.destroy', $cours->id_cours) }}"
+                          method="POST"
+                          style="display:inline"
+                          onsubmit="return confirm('Confirmer la suppression de ce cours ?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </li>
+            @endforeach
+        </ul>
     </div>
 
     <div class="section">
@@ -28,7 +52,7 @@
 
         @forelse($groupedByCours as $idCours => $reservationsCours)
             <div class="cours-block">
-                <h3>{{ $reservationsCours->first()->cours->titre }}</h3>
+                <h3>{{ $reservationsCours->first()->cours?->titre ?? 'Cours inconnu' }}</h3>
 
                 <table>
                     <thead>
@@ -41,8 +65,8 @@
                     <tbody>
                         @foreach($reservationsCours as $res)
                             <tr>
-                                <td>{{ $res->utilisateur->prenom }} {{ $res->utilisateur->nom }}</td>
-                                <td>{{ \Carbon\Carbon::parse($res->cours->date_heure)->format('d/m/Y H:i') }}</td>
+                                <td>{{ $res->utilisateur?->prenom }} {{ $res->utilisateur?->nom }}</td>
+                                <td>{{ \Carbon\Carbon::parse($res->cours?->date_heure)->format('d/m/Y H:i') }}</td>
                                 <td>{{ $res->statut }}</td>
                             </tr>
                         @endforeach
@@ -65,8 +89,8 @@
             @foreach($avis as $note)
                 <div class="avis">
                     <p>
-                        <strong>{{ $note->utilisateur->prenom }} {{ $note->utilisateur->nom }}</strong>
-                        a noté <strong>{{ $note->cours->titre }}</strong>
+                        <strong>{{ $note->utilisateur?->prenom }} {{ $note->utilisateur?->nom }}</strong>
+                        a noté <strong>{{ $note->cours?->titre }}</strong>
                     </p>
                     <p>Note : {{ $note->note_satisfaction }}/5</p>
                     <p>Commentaire : {{ $note->commentaire }}</p>
@@ -82,6 +106,7 @@
         <p><strong>Utilisateurs actifs :</strong> {{ $utilisateursActifs }}</p>
         <p><strong>Note moyenne des cours :</strong> {{ round($noteMoyenne, 2) }}/5</p>
     </div>
+
 </div>
 
 @endsection
