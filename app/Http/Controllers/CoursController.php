@@ -3,80 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cours;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CoursController extends Controller
 {
-// Controller pour un utilisateur
-
-    // Affiche les cours réservés par l’utilisateur connecté
+// Affiche les cours que l'utilisateur a réservés
     public function index()
     {
-        $utilisateur = Auth::user();
-
-        if (!$utilisateur) {
-            return redirect()->route('login');
-        }
-
+        $utilisateur = Auth::user(); 
         $cours = $utilisateur->cours()
-            ->withPivot('statut', 'date_reservation')
+            ->withPivot('statut', 'date_reservation') //les infos de la réservation
             ->get();
 
         return view('cours.index', compact('cours'));
     }
 
-// Page de confirmation de réservation
+// Affiche les détails du cours avant la réservation
     public function confirmer($id)
     {
-        $cours = Cours::findOrFail($id);
+        $cours = Cours::findOrFail($id); // Trouve le cours ou erreur 404
         return view('cours.confirmer', compact('cours'));
     }
 
-// Réserver un cours
+// Enregistre une réservation pour un cours
     public function reserver($id)
     {
-        $utilisateur = Auth::user();
+        $utilisateur = Auth::user(); 
+        $cours = Cours::withCount('utilisateurs')->findOrFail($id); // Récupère le cours + nombre de réservations
 
-        if (!$utilisateur) {
-            return redirect()->route('login')->withErrors([
-                'email' => 'Veuillez vous connecter pour réserver.'
-            ]);
-        }
-
-        $cours = Cours::withCount('utilisateurs')->findOrFail($id);
-
+// Vérifie si l'utilisateur a déjà réservé ce cours
         $dejaReserve = $utilisateur->cours()
             ->where('cours.id_cours', $id)
             ->exists();
 
         if ($dejaReserve) {
-            return redirect()->back()->with('error', 'Vous avez déjà réservé ce cours.');
+            return back()->with('error', 'Vous avez déjà réservé ce cours.');
         }
 
-        $statut = ($cours->utilisateurs_count < $cours->capacite_max) ? 'confirmée' : 'en attente';
+// Capacité max
+        $statut = ($cours->utilisateurs_count < $cours->capacite_max)
+            ? 'confirmée'
+            : 'en attente';
 
+// Enregistre la réservation
         $utilisateur->cours()->attach($id, [
             'date_reservation' => now(),
-            'statut' => $statut
+            'statut' => $statut,
         ]);
 
-        $message = $statut === 'confirmée'
-            ? 'Réservation confirmée !'
-            : 'Cours complet. Vous êtes en attente.';
-
-        return redirect()->route('cours.index')->with('success', $message);
+        return redirect()->route('cours.mes_reservations')
+            ->with('success', "Réservation $statut.");
     }
 
-// Affiche les réservations de l’utilisateur
+// Affiche les réservations de l'utilisateur
     public function mesReservations()
     {
         $utilisateur = Auth::user();
-
-        if (!$utilisateur) {
-            return redirect()->route('login');
-        }
-
         $reservations = $utilisateur->cours()
             ->withPivot('statut', 'date_reservation')
             ->get();
@@ -84,68 +66,20 @@ class CoursController extends Controller
         return view('cours.mes_reservations', compact('reservations'));
     }
 
-// Planning général (visible par tous)
+// Planning
     public function planning()
     {
         $cours = Cours::all();
         return view('cours.planning', compact('cours'));
     }
 
-//Controller pour l'admin
-
-// Formulaire d’ajout
-    public function create()
+// Annule une réservation
+    public function annuler($id)
     {
-        return view('cours.create');
-    }
+        $utilisateur = Auth::user();
+        $utilisateur->cours()->detach($id); // Supprime la ligne dans la table pivot
 
-// Enregistre un nouveau cours
-    public function store(Request $request)
-    {
-        $request->validate([
-            'titre' => 'required|string',
-            'description' => 'required|string',
-            'date_heure' => 'required|date',
-            'capacite_max' => 'required|integer',
-            'tranche_age' => 'nullable|string',
-        ]);
-
-        Cours::create($request->all());
-
-        return redirect()->route('admin.index')->with('success', 'Cours ajouté.');
-    }
-
-// Formulaire de modification
-    public function edit($id)
-    {
-        $cours = Cours::findOrFail($id);
-        return view('cours.edit', compact('cours'));
-    }
-
-// Enregistre la modification
-    public function update(Request $request, $id)
-    {
-        $cours = Cours::findOrFail($id);
-
-        $request->validate([
-            'titre' => 'required|string',
-            'description' => 'required|string',
-            'date_heure' => 'required|date',
-            'capacite_max' => 'required|integer',
-            'tranche_age' => 'nullable|string',
-        ]);
-
-        $cours->update($request->all());
-
-        return redirect()->route('admin.index')->with('success', 'Cours modifié.');
-    }
-
-// Suppression éventuelle si tu veux
-    public function destroy($id)
-    {
-        $cours = Cours::findOrFail($id);
-        $cours->delete();
-
-        return redirect()->route('admin.index')->with('success', 'Cours supprimé.');
+        return redirect()->route('cours.mes_reservations')
+            ->with('success', 'Réservation annulée.');
     }
 }

@@ -45,30 +45,26 @@ Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.lo
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
-    // Gestion des cours par l'admin
-    Route::get('/admin/cours/create', [CoursController::class, 'create'])->name('admin.cours.create');
-    Route::post('/admin/cours', [CoursController::class, 'store'])->name('admin.cours.store');
-    Route::get('/admin/cours/{id}/edit', [CoursController::class, 'edit'])->name('admin.cours.edit');
-    Route::put('/admin/cours/{id}', [CoursController::class, 'update'])->name('admin.cours.update');
-    Route::delete('/admin/cours/{id}', [CoursController::class, 'destroy'])->name('admin.cours.destroy');
+// Gestion des cours par l'admin
+Route::get('/admin/cours/create', [AdminController::class, 'create'])->name('admin.cours.create');
+Route::post('/admin/cours', [AdminController::class, 'store'])->name('admin.cours.store');
+Route::get('/admin/cours/{id}/edit', [AdminController::class, 'edit'])->name('admin.cours.edit');
+Route::put('/admin/cours/{id}', [AdminController::class, 'update'])->name('admin.cours.update');
+Route::delete('/admin/cours/{id}', [AdminController::class, 'destroy'])->name('admin.cours.destroy');
 });
 
+// Vue gestion des cours pour utilisateur
 
-// Vue gestion des cours pour utilisateur et admin
-
-// Vue planning
-Route::get('/planning', [CoursController::class, 'planning'])->name('cours.planning');
-
-// API pour les données du calendrier (JSON)
-Route::get('/api/cours', fn() => \App\Models\Cours::all())->name('api.cours');
-
-// Réservations
+// Routes protégées par authentification
 Route::middleware('auth')->group(function () {
-    Route::get('/mes-cours', [CoursController::class, 'index'])->name('cours.index');
-    Route::get('/cours/{id}/confirmer', [CoursController::class, 'confirmer'])->whereUuid('id')->name('cours.confirmer');
-    Route::post('/cours/{id}/reserver', [CoursController::class, 'reserver'])->whereUuid('id')->name('cours.reserver');
-    Route::get('/mes-reservations', [CoursController::class, 'mesReservations'])->name('cours.mes_reservations');
-    Route::delete('/cours/{id}/annuler', [ReserverController::class, 'annuler'])->whereUuid('id')->name('cours.annuler');
+
+Route::get('/planning', [CoursController::class, 'planning'])->name('cours.planning');
+Route::get('/api/cours', fn() => \App\Models\Cours::all())->name('api.cours');
+Route::get('/mes-cours', [CoursController::class, 'index'])->name('cours.index');
+Route::get('/cours/{id}/confirmer', [CoursController::class, 'confirmer'])->whereUuid('id_cours')->name('cours.confirmer');
+Route::post('/cours/{id}/reserver', [CoursController::class, 'reserver'])->whereUuid('id_cours')->name('cours.reserver');
+Route::get('/mes-reservations', [CoursController::class, 'mesReservations'])->name('cours.mes_reservations');
+Route::delete('/cours/{id}/annuler', [CoursController::class, 'annuler'])->whereUuid('id')->name('cours.annuler');
 });
 
 // Noter
@@ -80,6 +76,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/noter/{id_cours}/modifier', [NoterController::class, 'MAJ'])->whereUuid('id_cours')->name('noter.MAJ');
     Route::delete('/noter/{id_cours}', [NoterController::class, 'supprimer'])->whereUuid('id_cours')->name('noter.supprimer');
 });
+
 
 // Question
 
