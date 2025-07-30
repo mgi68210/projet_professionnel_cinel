@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CoursController extends Controller
 {
-    // ===================== UTILISATEUR =====================
+// Controller pour un utilisateur
 
     // Affiche les cours réservés par l’utilisateur connecté
     public function index()
@@ -26,14 +26,14 @@ class CoursController extends Controller
         return view('cours.index', compact('cours'));
     }
 
-    // Page de confirmation de réservation
+// Page de confirmation de réservation
     public function confirmer($id)
     {
         $cours = Cours::findOrFail($id);
         return view('cours.confirmer', compact('cours'));
     }
 
-    // Réserver un cours
+// Réserver un cours
     public function reserver($id)
     {
         $utilisateur = Auth::user();
@@ -68,7 +68,7 @@ class CoursController extends Controller
         return redirect()->route('cours.index')->with('success', $message);
     }
 
-    // Affiche les réservations de l’utilisateur
+// Affiche les réservations de l’utilisateur
     public function mesReservations()
     {
         $utilisateur = Auth::user();
@@ -84,22 +84,22 @@ class CoursController extends Controller
         return view('cours.mes_reservations', compact('reservations'));
     }
 
-    // Planning général (visible par tous)
+// Planning général (visible par tous)
     public function planning()
     {
         $cours = Cours::all();
         return view('cours.planning', compact('cours'));
     }
 
-    // ===================== ADMIN =====================
+//Controller pour l'admin
 
-    // Formulaire d’ajout
+// Formulaire d’ajout
     public function create()
     {
         return view('cours.create');
     }
 
-    // Enregistre un nouveau cours
+// Enregistre un nouveau cours
     public function store(Request $request)
     {
         $request->validate([
@@ -115,14 +115,14 @@ class CoursController extends Controller
         return redirect()->route('admin.index')->with('success', 'Cours ajouté.');
     }
 
-    // Formulaire de modification
+// Formulaire de modification
     public function edit($id)
     {
         $cours = Cours::findOrFail($id);
         return view('cours.edit', compact('cours'));
     }
 
-    // Enregistre la modification
+// Enregistre la modification
     public function update(Request $request, $id)
     {
         $cours = Cours::findOrFail($id);
@@ -140,7 +140,7 @@ class CoursController extends Controller
         return redirect()->route('admin.index')->with('success', 'Cours modifié.');
     }
 
-    // Suppression éventuelle si tu veux
+// Suppression éventuelle si tu veux
     public function destroy($id)
     {
         $cours = Cours::findOrFail($id);

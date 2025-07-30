@@ -9,12 +9,6 @@ use App\Http\Controllers\NoterController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ReponseController;
 
-/*
-|--------------------------------------------------------------------------
-| Routes Web
-|--------------------------------------------------------------------------
-*/
-
 // Page d'accueil par défaut
 Route::get('/', fn() => redirect()->route('accueil'));
 
@@ -28,11 +22,8 @@ Route::view('/cours_montage', 'cours_montage')->name('cours_montage');
 Route::view('/cours_production', 'cours_production')->name('cours_production');
 Route::view('/cours_realisation', 'cours_realisation')->name('cours_realisation');
 
-/*
-|--------------------------------------------------------------------------
-| Authentification Utilisateur
-|--------------------------------------------------------------------------
-*/
+
+// Authentification Utilisateur
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [UtilisateurController::class, 'index'])->name('home');
@@ -44,11 +35,8 @@ Route::get('/register', [UtilisateurController::class, 'showRegister'])->name('r
 Route::post('/register', [UtilisateurController::class, 'register'])->name('register.submit');
 Route::post('/logout', [UtilisateurController::class, 'logout'])->name('logout');
 
-/*
-|--------------------------------------------------------------------------
-| Authentification Admin
-|--------------------------------------------------------------------------
-*/
+
+// Authentification Admin
 
 Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
@@ -65,19 +53,16 @@ Route::middleware('auth:admin')->group(function () {
     Route::delete('/admin/cours/{id}', [CoursController::class, 'destroy'])->name('admin.cours.destroy');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Cours & Planning (utilisateurs & admin)
-|--------------------------------------------------------------------------
-*/
 
-// Vue dynamique des cours (planning interactif)
+// Vue gestion des cours pour utilisateur et admin
+
+// Vue planning
 Route::get('/planning', [CoursController::class, 'planning'])->name('cours.planning');
 
 // API pour les données du calendrier (JSON)
 Route::get('/api/cours', fn() => \App\Models\Cours::all())->name('api.cours');
 
-// Réservations (auth utilisateur)
+// Réservations
 Route::middleware('auth')->group(function () {
     Route::get('/mes-cours', [CoursController::class, 'index'])->name('cours.index');
     Route::get('/cours/{id}/confirmer', [CoursController::class, 'confirmer'])->whereUuid('id')->name('cours.confirmer');
@@ -86,11 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cours/{id}/annuler', [ReserverController::class, 'annuler'])->whereUuid('id')->name('cours.annuler');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Notation
-|--------------------------------------------------------------------------
-*/
+// Noter
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/noter', [NoterController::class, 'formulaire'])->name('noter.formulaire');
@@ -100,11 +81,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/noter/{id_cours}', [NoterController::class, 'supprimer'])->whereUuid('id_cours')->name('noter.supprimer');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Quiz / Questions
-|--------------------------------------------------------------------------
-*/
+// Question
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quiz', [QuestionController::class, 'index'])->name('quiz.index');

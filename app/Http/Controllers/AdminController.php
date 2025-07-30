@@ -39,7 +39,7 @@ class AdminController extends Controller
         return redirect()->route('accueil');
     }
 
-    // Tableau de bord admin
+// Tableau de bord admin
     public function index()
     {
         $admin = Auth::guard('admin')->user();
