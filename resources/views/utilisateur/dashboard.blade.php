@@ -51,7 +51,8 @@
                                 @else
                                     <a href="{{ route('noter.formulaire') }}">Noter</a>
                                 @endif
-                                    <form action="{{ route('cours.annuler', $cours->id_cours) }}" method="POST" onsubmit="return confirm('Annuler ce cours ?')" style="display:inline;">
+                                    <form action="{{ route('cours.annuler', $cours->id_cours) }}" 
+                                    method="POST" onsubmit="return confirm('Annuler ce cours ?')" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Annuler</button>

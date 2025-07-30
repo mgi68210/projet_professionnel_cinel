@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\CoursController;
-use App\Http\Controllers\ReserverController;
 use App\Http\Controllers\NoterController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ReponseController;
@@ -43,7 +42,7 @@ Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.logi
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 Route::middleware('auth:admin')->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
 // Gestion des cours par l'admin
 Route::get('/admin/cours/create', [AdminController::class, 'create'])->name('admin.cours.create');
@@ -53,7 +52,7 @@ Route::put('/admin/cours/{id}', [AdminController::class, 'update'])->name('admin
 Route::delete('/admin/cours/{id}', [AdminController::class, 'destroy'])->name('admin.cours.destroy');
 });
 
-// Vue gestion des cours pour utilisateur
+// COURS
 
 // Routes protégées par authentification
 Route::middleware('auth')->group(function () {
@@ -67,7 +66,7 @@ Route::get('/mes-reservations', [CoursController::class, 'mesReservations'])->na
 Route::delete('/cours/{id}/annuler', [CoursController::class, 'annuler'])->whereUuid('id')->name('cours.annuler');
 });
 
-// Noter
+// NOTER
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/noter', [NoterController::class, 'formulaire'])->name('noter.formulaire');
@@ -78,7 +77,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-// Question
+// QUESTION
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quiz', [QuestionController::class, 'index'])->name('quiz.index');
