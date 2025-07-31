@@ -9,6 +9,7 @@
 <div class="avis-container">
     <h2>Modifier votre avis</h2>
 
+    {{-- Formulaire de mise à jour --}}
     <form method="POST" action="{{ route('noter.MAJ', $cours->id_cours) }}">
         @csrf
 
@@ -27,6 +28,15 @@
         <textarea name="commentaire" id="commentaire" rows="4">{{ $note->commentaire }}</textarea>
 
         <button type="submit">Modifier</button>
+    </form>
+
+    {{-- Formulaire de suppression séparé --}}
+    <form method="POST" action="{{ route('noter.supprimer', $cours->id_cours) }}" 
+          onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre avis ?');"
+          style="margin-top: 1rem;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn-supprimer">Supprimer</button>
     </form>
 </div>
 

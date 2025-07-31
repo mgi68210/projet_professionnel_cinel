@@ -46,14 +46,16 @@
                             <td class="actions">
                            <a href="{{ route('quiz.show', $cours->id_cours) }}">Quiz</a>       
 
-                                @if($cours->noter()->where('id_utilisateur', $utilisateur->id_utilisateur)->exists())
-                                    <a href="{{ route('noter.modifier', $cours->id_cours) }}">Modifier avis</a>
-                                @else
+                                    @if($cours->noter()->where('id_utilisateur', $utilisateur->id_utilisateur)->exists())
+                                    <a href="{{ route('noter.detail', $cours->id_cours) }}">Voir l’avis</a>
+                                    @else
                                     <a href="{{ route('noter.formulaire') }}">Noter</a>
-                                @endif
+                                    @endif
+
                                     <form action="{{ route('cours.annuler', $cours->id_cours) }}" 
                                     method="POST" onsubmit="return confirm('Annuler ce cours ?')" style="display:inline;">
                                     @csrf
+                                    
                                     @method('DELETE')
                                     <button type="submit">Annuler</button>
                                 </form>

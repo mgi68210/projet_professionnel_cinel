@@ -7,15 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CoursController extends Controller
 {
-// Affiche les cours que l'utilisateur a réservés
-    public function index()
+// Planning
+    public function planning()
     {
-        $utilisateur = Auth::user(); 
-        $cours = $utilisateur->cours()
-            ->withPivot('statut', 'date_reservation') //les infos de la réservation
-            ->get();
-
-        return view('cours.index', compact('cours'));
+        $cours = Cours::all();
+        return view('cours.planning', compact('cours'));
     }
 
 // Affiche les détails du cours avant la réservation
@@ -66,12 +62,6 @@ class CoursController extends Controller
         return view('cours.mes_reservations', compact('reservations'));
     }
 
-// Planning
-    public function planning()
-    {
-        $cours = Cours::all();
-        return view('cours.planning', compact('cours'));
-    }
 
 // Annule une réservation
     public function annuler($id)

@@ -60,3 +60,16 @@
 .avis-container button:hover {
   background-color: #7a543e;
 }
+
+.btn-supprimer {
+    background-color: #350d0c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-supprimer:hover {
+    background-color: #1d0707;
+}

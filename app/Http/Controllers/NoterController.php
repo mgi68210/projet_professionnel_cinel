@@ -8,6 +8,29 @@ use Illuminate\Support\Facades\Auth;
 
 class NoterController extends Controller
 {
+
+
+    public function detail($id_cours)
+{
+    if (!Auth::check()) return redirect('/login');
+
+    $utilisateur = Auth::user();
+
+    // Vérifie que l'utilisateur a réservé le cours
+    $cours = $utilisateur->cours->where('id_cours', $id_cours)->first();
+    if (!$cours) {
+        return redirect('/')->with('error', 'Action non autorisée.');
+    }
+
+    // Récupère la note
+    $note = Noter::where('id_utilisateur', $utilisateur->id_utilisateur)
+                 ->where('id_cours', $id_cours)
+                 ->firstOrFail();
+
+    return view('noter.detail', compact('utilisateur', 'cours', 'note'));
+}
+
+
     // Affiche les cours réservés mais pas encore notés
     public function formulaire()
     {

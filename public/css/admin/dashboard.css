@@ -2,16 +2,15 @@
     max-width: 1000px;
     margin: 40px auto;
     padding: 30px;
-    background: #ffffff;
+    background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(6, 6, 6, 0.08);
-    font-family: "Century Gothic", "Arial", sans-serif;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    font-family: Arial, sans-serif;
 }
 
-/* Titres */
 .admin-dashboard h1 {
     color: #422d26;
-    font-size: 28px;
+    font-size: 26px;
     margin-bottom: 30px;
     text-align: center;
 }
@@ -22,7 +21,7 @@
 
 .section h2 {
     color: #754526;
-    font-size: 22px;
+    font-size: 20px;
     margin-bottom: 15px;
     border-bottom: 2px solid #dec7a8;
     padding-bottom: 5px;
@@ -34,7 +33,7 @@
 
 .cours-block h3 {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 16px;
     color: #422d26;
 }
 
@@ -43,7 +42,7 @@ table {
     border-collapse: collapse;
     margin-top: 10px;
     font-size: 14px;
-    background-color: #ffffff;
+    background-color: #fff;
 }
 
 table thead {
@@ -52,20 +51,19 @@ table thead {
 
 table th,
 table td {
-    padding: 12px;
+    padding: 10px;
     border: 1px solid #b9b5a4;
     text-align: left;
 }
 
 table th {
     color: #060606;
-    font-weight: bold;
 }
 
 .avis {
     background-color: #f6f3f3;
     border-left: 4px solid #cf8c53;
-    padding: 15px;
+    padding: 12px;
     margin-bottom: 15px;
     border-radius: 6px;
 }
@@ -87,63 +85,28 @@ p {
 
 .btn {
     display: inline-block;
-    padding: 8px 16px;
+    padding: 8px 14px;
     border-radius: 6px;
     text-decoration: none;
     font-weight: bold;
     font-size: 14px;
-    transition: background-color 0.2s ease;
+    transition: 0.2s;
     margin-right: 5px;
+    color: white;
 }
 
 .btn-success {
     background-color: #cf8c53;
-    color: white;
 }
 
 .btn-primary {
     background-color: #754526;
-    color: white;
 }
 
 .btn-danger {
     background-color: #422d26;
-    color: white;
 }
 
 .btn:hover {
     opacity: 0.9;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-label {
-    font-weight: bold;
-    color: #422d26;
-}
-
-input[type="text"],
-input[type="datetime-local"],
-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #b9b5a4;
-    border-radius: 6px;
-    margin-top: 5px;
-    font-size: 14px;
-    background-color: #f6f3f3;
-    color: #060606;
-}
-
-input[type="text"]:focus,
-input[type="datetime-local"]:focus,
-textarea:focus {
-    border-color: #cf8c53;
-    outline: none;
-}
-
-button[type="submit"] {
-    margin-top: 10px;
 }

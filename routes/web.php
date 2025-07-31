@@ -6,7 +6,10 @@ use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\NoterController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\AdminCoursController;
 use App\Http\Controllers\ReponseController;
+
+
 
 // Page d'accueil par défaut
 Route::get('/', fn() => redirect()->route('accueil'));
@@ -45,21 +48,21 @@ Route::middleware('auth:admin')->group(function () {
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
 // Gestion des cours par l'admin
-Route::get('/admin/cours/create', [AdminController::class, 'create'])->name('admin.cours.create');
-Route::post('/admin/cours', [AdminController::class, 'store'])->name('admin.cours.store');
-Route::get('/admin/cours/{id}/edit', [AdminController::class, 'edit'])->name('admin.cours.edit');
-Route::put('/admin/cours/{id}', [AdminController::class, 'update'])->name('admin.cours.update');
-Route::delete('/admin/cours/{id}', [AdminController::class, 'destroy'])->name('admin.cours.destroy');
+Route::get('/admin/cours', [AdminCoursController::class, 'index'])->name('admin.cours.index');
+
+Route::get('/admin/cours/create', [AdminCoursController::class, 'create'])->name('admin.cours.create');
+Route::post('/admin/cours', [AdminCoursController::class, 'store'])->name('admin.cours.store');
+Route::get('/admin/cours/{id}/edit', [AdminCoursController::class, 'edit'])->name('admin.cours.edit');
+Route::put('/admin/cours/{id}', [AdminCoursController::class, 'update'])->name('admin.cours.update');
+Route::delete('/admin/cours/{id}', [AdminCoursController::class, 'destroy'])->name('admin.cours.destroy');
 });
 
 // COURS
-
 // Routes protégées par authentification
 Route::middleware('auth')->group(function () {
 
 Route::get('/planning', [CoursController::class, 'planning'])->name('cours.planning');
 Route::get('/api/cours', fn() => \App\Models\Cours::all())->name('api.cours');
-Route::get('/mes-cours', [CoursController::class, 'index'])->name('cours.index');
 Route::get('/cours/{id}/confirmer', [CoursController::class, 'confirmer'])->whereUuid('id_cours')->name('cours.confirmer');
 Route::post('/cours/{id}/reserver', [CoursController::class, 'reserver'])->whereUuid('id_cours')->name('cours.reserver');
 Route::get('/mes-reservations', [CoursController::class, 'mesReservations'])->name('cours.mes_reservations');
@@ -69,6 +72,7 @@ Route::delete('/cours/{id}/annuler', [CoursController::class, 'annuler'])->where
 // NOTER
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/noter/{id_cours}/detail', [NoterController::class, 'detail'])->whereUuid('id_cours')->name('noter.detail');
     Route::get('/noter', [NoterController::class, 'formulaire'])->name('noter.formulaire');
     Route::post('/noter', [NoterController::class, 'envoyer'])->name('noter.envoyer');
     Route::get('/noter/{id_cours}/modifier', [NoterController::class, 'modifier'])->whereUuid('id_cours')->name('noter.modifier');

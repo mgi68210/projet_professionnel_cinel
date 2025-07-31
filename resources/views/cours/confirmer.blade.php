@@ -18,9 +18,13 @@
         <form method="POST" action="{{ route('cours.reserver', $cours->id_cours) }}">
             @csrf
             <button type="submit">Confirmer la réservation</button>
-        </form>
-
+    @if(session('error'))
+        <div class="alert alert-danger" style="color: red; font-weight: bold; margin-bottom: 1em;">
+            {{ session('error') }}
+        </div>
+    @endif
         <a href="{{ route('cours.planning') }}">Annuler</a>
+        </form>
     </div>
 </div>
 @endsection
