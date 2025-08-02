@@ -28,7 +28,7 @@ class CoursSeeder extends Seeder
             ],
             [
                 'titre' => 'Montage Vidéo',
-                'description' => 'Maîtrisez les bases du montage vidéo',
+                'descr iption' => 'Maîtrisez les bases du montage vidéo',
                 'tranche_age' => 'Tous',
                 'capacite_max' => 15,
                 'date_heure' => '2025-06-17 16:00:00',

@@ -38,9 +38,9 @@
             <input type="text" id="tranche_age" name="tranche_age" value="{{ old('tranche_age') }}">
         </div>
 
-        <div class="form-buttons">
-            <a href="{{ route('admin.cours.index') }}" class="btn btn-primary">Retour</a>
-            <button type="submit">Enregistrer</button>
+        <div class="form-bouttons">
+            <a href="{{ route('admin.cours.index') }}" class="btn-retour">Retour</a>
+            <button type="submit" class="btn-valider">Enregistrer</button>
         </div>
     </form>
 </div>

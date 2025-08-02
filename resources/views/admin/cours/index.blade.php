@@ -12,10 +12,11 @@
 
     {{-- Bouton Ajouter --}}
     <div style="text-align: right; margin-bottom: 20px;">
-        <a href="{{ route('admin.cours.create') }}" class="btn btn-success">+ Ajouter un cours</a>
+        <a href="{{ route('admin.cours.create') }}" class="btn btn-success">Ajouter un cours</a>
     </div>
 
     <div class="cours-block">
+        {{-- Tableau des cours --}}
         <table>
             <thead>
                 <tr>
@@ -33,10 +34,12 @@
                         <td>{{ $c->tranche_age ?? 'Non défini' }}</td>
                         <td class="actions">
                             <a href="{{ route('admin.cours.edit', $c->id_cours) }}" class="btn btn-primary">Modifier</a>
-                            <form action="{{ route('admin.cours.destroy', $c->id_cours) }}" method="POST" style="display:inline" onsubmit="return confirm('Supprimer ce cours ?')">
+
+                            <form action="{{ route('admin.cours.destroy', $c->id_cours) }}" method="POST" style="display:inline"
+                                onsubmit="return confirm('Supprimer ce cours ?')">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger" type="submit">Supprimer</button>
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
                             </form>
                         </td>
                     </tr>

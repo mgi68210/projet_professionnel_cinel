@@ -6,6 +6,7 @@ body {
     padding: 0;
 }
 
+/* CONTENEUR DU FORMULAIRE */
 .admin-form-container {
     max-width: 700px;
     margin: 60px auto;
@@ -64,7 +65,7 @@ select:focus {
 }
 
 /* BOUTONS */
-.form-buttons {
+.form-bouttons {
     display: flex;
     justify-content: center;
     gap: 16px;
@@ -72,8 +73,8 @@ select:focus {
     flex-wrap: wrap;
 }
 
-button[type="submit"],
-a.btn {
+.btn-valider,
+.btn-retour {
     padding: 12px 24px;
     font-size: 16px;
     font-weight: bold;
@@ -81,25 +82,25 @@ a.btn {
     text-align: center;
     text-decoration: none;
     border: none;
-    color: white;
     cursor: pointer;
-    transition: opacity 0.2s ease-in-out;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
-button[type="submit"] {
+/* BOUTON ENREGISTRER */
+.btn-valider {
     background-color: #754526;
+    color: white;
 }
 
-a.btn-primary {
+/* BOUTON RETOUR */
+.btn-retour {
     background-color: #cf8c53;
+    color: white;
 }
 
-a.btn-danger {
-    background-color: #422d26;
-}
-
-button:hover,
-a.btn:hover {
+/* HOVER */
+.btn-valider:hover,
+.btn-retour:hover {
     opacity: 0.9;
 }
 
@@ -111,7 +112,7 @@ a.btn:hover {
 }
 
 /* RESPONSIVE */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .admin-form-container {
         padding: 25px;
         margin: 30px 15px;
@@ -121,12 +122,12 @@ a.btn:hover {
         font-size: 15px;
     }
 
-    .form-buttons {
+    .form-bouttons {
         flex-direction: column;
     }
 
-    button[type="submit"],
-    a.btn {
+    .btn-valider,
+    .btn-retour {
         width: 100%;
     }
 }
